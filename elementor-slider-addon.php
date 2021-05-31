@@ -8,7 +8,7 @@
  * Text Domain: elementor-slider-addon
  */
 
-namespace elementor_slider_addon;
+namespace Elementor_Slider_Addon;
 
 use Elementor\Plugin;
 
@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
 add_action('elementor/widgets/widgets_registered', function () {
     require_once('widgets/slider-addon.php');
 
-    $elementor_slider_addon =	new Elementor_slider_addon();
+    $elementor_slider_addon =	new Widgets\Elementor_Slider_Addon();
     // Let Elementor know about our widget
     Plugin::instance()->widgets_manager->register_widget_type($elementor_slider_addon);
 });

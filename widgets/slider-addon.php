@@ -1,6 +1,6 @@
 <?php
 
-namespace elementor_slider_addon\widgets;
+namespace Elementor_Slider_Addon\Widgets;
 
 use Elementor\Repeater;
 use Elementor\Widget_Base;
@@ -9,7 +9,7 @@ if (! defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
-class Elementor_slider_addon extends Widget_Base
+class Elementor_Slider_Addon extends Widget_Base
 {
     public static $slug = 'elementor-slider-addon';
 
@@ -136,8 +136,8 @@ class Elementor_slider_addon extends Widget_Base
         parent::__construct($data, $args);
 
         //wp_register_script( 'ctb-script', '/path/to/content-toggle-button.js', [ 'elementor-frontend' ], '1.0.0', true );
-        wp_register_script('elementor_slider_addon_js', plugins_url('/assets/js/parallachs-plugin.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
-        wp_register_style('elementor_slider_addon_css', plugins_url('/assets/css/aliderAddon.css', __FILE__));
+        //wp_register_script('elementor_slider_addon_js', plugins_url('/assets/js/parallachs-plugin.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
+        //wp_register_style('elementor_slider_addon_css', plugins_url('/assets/css/aliderAddon.css', __FILE__));
     }
 
     public function get_script_depends()
