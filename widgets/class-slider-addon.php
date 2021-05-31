@@ -3,18 +3,16 @@
  * Slider Addon class.
  *
  * @category   Class
- * @package    ElementorAwesomesauce
+ * @package    ElementorSliderAddon
  * @subpackage WordPress
- * @author     Ben Marshall <me@benmarshall.me>
- * @copyright  2020 Ben Marshall
+ * @author     Parallachs <kollektiv@parallachs.de>
+ * @copyright  2021 Parallachs
  * @license    https://opensource.org/licenses/GPL-3.0 GPL-3.0-only
- * @link       link(https://www.benmarshall.me/build-custom-elementor-widgets/,
- *             Build Custom Elementor Widgets)
  * @since      1.0.0
  * php version 7.3.9
  */
 
-namespace ElementorAwesomesauce\Widgets;
+namespace ElementorSliderAddon\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -175,9 +173,9 @@ class Slider_Addon extends Widget_Base
         $this->add_inline_editing_attributes('title', 'none');
         $this->add_inline_editing_attributes('description', 'basic');
         $this->add_inline_editing_attributes('content', 'advanced'); ?>
-		<h2 <?php echo $this->get_render_attribute_string('title'); ?><?php echo wp_kses($settings['title'], array()); ?></h2>
-		<div <?php echo $this->get_render_attribute_string('description'); ?><?php echo wp_kses($settings['description'], array()); ?></div>
-		<div <?php echo $this->get_render_attribute_string('content'); ?><?php echo wp_kses($settings['content'], array()); ?></div>
+		<h2 <?php echo $this->get_render_attribute_string('title'); ?>><?php echo wp_kses($settings['title'], array()); ?></h2>
+		<div <?php echo $this->get_render_attribute_string('description'); ?>><?php echo wp_kses($settings['description'], array()); ?></div>
+		<div <?php echo $this->get_render_attribute_string('content'); ?>><?php echo wp_kses($settings['content'], array()); ?></div>
 		<?php
     }
 
