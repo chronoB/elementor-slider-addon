@@ -9,7 +9,7 @@ repos:
   - id: php-lint
   - id: php-cs-fixer
     files: \.(php)$
-    args: [--level=PSR12]
+    args: [--rules=@PSR12]
 - repo: https://github.com/pre-commit/mirrors-eslint
   rev: 'v7.27.0'  # Use the sha / tag you want to point at
   hooks:
