@@ -96,38 +96,6 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render()
     {
-        $options_list = $this->get_settings_for_display('options_list');
-        echo '<div class="cd-timeline__content"> 
-			
-		<div class="cd-timeline__line-wrapper">
-			<div class="cd-timeline__line">
-				<div class="cd-timeline__line-status"></div>
-			</div>
-		</div>
-	  
-		';
-        $count = 1;
-        foreach ($options_list as $option_item) {
-            echo ' 
-		<div class="cd-timeline__block">
-			<div class="timeline__image">
-				'. wp_get_attachment_image($option_item[option_image][id], 'elementor-timeline') .'
-			</div> 
-			<div class="cd-timeline__number">
-				<span>'.$count.'</span>
-			</div> 
-			<div class="text-component">
-				<h3>'. $option_item['option_value'] . '</h3>
-				<p class="color-contrast-medium">'.$option_item['option_contents'].'</p>
-			</div> 
-
-    	</div>';
-
-
-
-            $count ++;
-        }
-        echo "</div>";
     }
 
 
@@ -135,14 +103,12 @@ class Elementor_Slider_Addon extends Widget_Base
     {
         parent::__construct($data, $args);
 
-        //wp_register_script( 'ctb-script', '/path/to/content-toggle-button.js', [ 'elementor-frontend' ], '1.0.0', true );
-        //wp_register_script('elementor_slider_addon_js', plugins_url('/assets/js/parallachs-plugin.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
-        //wp_register_style('elementor_slider_addon_css', plugins_url('/assets/css/aliderAddon.css', __FILE__));
+        wp_register_script('siema_slider_js', plugins_url('/assets/js/siema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
     }
 
     public function get_script_depends()
     {
-        return [ 'elementor_slider_addon_js' ];
+        return [ 'siema_slider_js' ];
     }
 
     public function get_style_depends()
