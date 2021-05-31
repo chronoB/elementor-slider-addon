@@ -1,21 +1,27 @@
 <?php
 /**
- * Elementor Slider Addon WordPress Plugin
- *
- * @package ElementorSliderAddon
- *
  * Plugin Name: Elementor Slider Addon
- * Description: Lightweight easy-to-use slider widget for Elementor.
- * Plugin URI:  https://github.com/chronoB/elementor-slider-addon
+ * Description: A simple Elementor Widget that creates an Timeline List
+ * Author URI:  https://www.parallachs.de
  * Version:     1.0.0
- * Author:      Parallachs
- * Author URI:  https://parallachs.de
+ * Author:      Finn Bayer
  * Text Domain: elementor-slider-addon
  */
 
-define('ELEMENTOR_SLIDER_ADDON', __FILE__);
+namespace Elementor_Slider_Addon;
 
-/**
- * Include the Elementor_Slider_Addon class.
- */
-require plugin_dir_path(ELEMENTOR_SLIDER_ADDON) . 'class-elementor-slider-addon.php';
+use Elementor\Plugin;
+
+if (! defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
+
+// The Widget_Base class is not available immediately after plugins are loaded, so
+// we delay the class' use until Elementor widgets are registered
+add_action('elementor/widgets/widgets_registered', function () {
+    require_once('widgets/slider-addon.php');
+
+    $elementor_slider_addon =	new Widgets\Elementor_Slider_Addon();
+    // Let Elementor know about our widget
+    Plugin::instance()->widgets_manager->register_widget_type($elementor_slider_addon);
+});
