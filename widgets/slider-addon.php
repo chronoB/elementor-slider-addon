@@ -319,6 +319,6 @@ class Elementor_Slider_Addon extends Widget_Base
 
     public function get_style_depends()
     {
-        return [ 'elementor_slider_addon_css' ];
+        return [  ];
     }
 }
