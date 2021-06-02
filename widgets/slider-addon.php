@@ -289,6 +289,13 @@ class Elementor_Slider_Addon extends Widget_Base
 		$this->end_controls_section();
 
         //TODO: Add configuration from siema api
+        $this->start_controls_section(
+            'siema_content_section',
+            [
+                'label' => __('Slider Configuration', self::$slug),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
 
         $this->end_controls_section();
     }
