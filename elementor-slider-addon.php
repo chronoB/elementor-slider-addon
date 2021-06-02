@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Elementor Slider Addon
- * Description: A simple Elementor Widget that creates an Timeline List
+ * Description: Lightweight easy-to-use slider widget for Elementor. 
  * Author URI:  https://www.parallachs.de
  * Version:     1.0.0
  * Author:      Finn Bayer
