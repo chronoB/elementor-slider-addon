@@ -6,6 +6,10 @@ use Elementor\Repeater;
 use Elementor\Widget_Base;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Image_Size;
+use ElementorPro\Core\Utils;
+//TODO: check if you could rewrite this query stuff without elementor pro
+use ElementorPro\Modules\QueryControl\Module as Module_Query;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -166,7 +170,39 @@ class Elementor_Slider_Addon extends Widget_Base
 				],
 			]
 		);
-
+        $this->add_control(
+            'show_title',
+            [
+                'label' => __('Show Title', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', self::$slug ),
+				'label_off' => __( 'Hide', self::$slug ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+            ]
+        );
+        $this->add_control(
+			'title_tag',
+			[
+				'label' => __( 'Title HTML Tag', self::$slug ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
+					'h4' => 'H4',
+					'h5' => 'H5',
+					'h6' => 'H6',
+					'div' => 'div',
+					'span' => 'span',
+					'p' => 'p',
+				],
+				'default' => 'h3',
+				'condition' => [
+					'show_title' => 'yes',
+				],
+			]
+        );
 		$this->end_controls_section();
 
         $this->start_controls_section(
@@ -300,8 +336,152 @@ class Elementor_Slider_Addon extends Widget_Base
         $this->end_controls_section();
     }
 
+    public function query_posts() {
+
+		$query_args = [
+			'posts_per_page' => $this->get_settings( 'posts_per_page' ),
+		];
+
+		/** @var Module_Query $elementor_query */
+		$elementor_query = Module_Query::instance();
+		$this->_query = $elementor_query->get_query( $this, 'posts', $query_args, [] );
+	}
+	public function get_query() {
+		return $this->_query;
+	}
+    protected function get_posts_tags() {
+		$taxonomy = $this->get_settings( 'taxonomy' );
+
+		foreach ( $this->_query->posts as $post ) {
+			if ( ! $taxonomy ) {
+				$post->tags = [];
+
+				continue;
+			}
+
+			$tags = wp_get_post_terms( $post->ID, $taxonomy );
+
+			$tags_slugs = [];
+
+			foreach ( $tags as $tag ) {
+				$tags_slugs[ $tag->term_id ] = $tag;
+			}
+
+			$post->tags = $tags_slugs;
+		}
+	}
+
+    protected function render_loop_header() {
+		if ( $this->get_settings( 'show_filter_bar' ) ) {
+			$this->render_filter_menu();
+		}
+		?>
+		<div class="elementor-slider elementor-grid elementor-posts-container">
+		<?php
+	}
+
+	protected function render_loop_footer() {
+		?>
+		</div>
+		<?php
+	}
+    protected function render_post_header() {
+		global $post;
+
+		$tags_classes = array_map( function( $tag ) {
+			return 'elementor-filter-' . $tag->term_id;
+		}, $post->tags );
+
+		$classes = [
+			'elementor-slider-item',
+			'elementor-post',
+			implode( ' ', $tags_classes ),
+		];
+
+		?>
+		<article <?php post_class( $classes ); ?>>
+			<a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
+		<?php
+	}
+
+	protected function render_post_footer() {
+		?>
+		</a>
+		</article>
+		<?php
+	}
+    protected function render_overlay_header() {
+		?>
+		<div class="elementor-slider-item__overlay">
+		<?php
+	}
+
+	protected function render_overlay_footer() {
+		?>
+		</div>
+		<?php
+	}
+	protected function render_title() {
+		if ( ! $this->get_settings( 'show_title' ) ) {
+			return;
+		}
+
+		$tag = Utils::validate_html_tag( $this->get_settings( 'title_tag' ) );
+		?>
+		<<?php echo $tag; ?> class="elementor-slider-item__title">
+		<?php the_title(); ?>
+		</<?php echo $tag; ?>>
+		<?php
+	}
+    protected function render_thumbnail() {
+		$settings = $this->get_settings();
+
+		$settings['thumbnail_size'] = [
+			'id' => get_post_thumbnail_id(),
+		];
+
+		$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size' );
+		?>
+		<div class="elementor-portfolio-item__img elementor-post__thumbnail">
+			<?php echo $thumbnail_html; ?>
+		</div>
+		<?php
+	}
+
+    protected function render_post() {
+		$this->render_post_header();
+		$this->render_thumbnail();
+		$this->render_overlay_header();
+		$this->render_title();
+		$this->render_overlay_footer();
+		$this->render_post_footer();
+	}
     protected function render()
     {
+        if ($this->get_settings( 'slide-content' ) == 'query'){
+            //render query
+            $this->query_posts();
+
+            $wp_query = $this->get_query();
+
+            $this->get_posts_tags();
+            $this->render_loop_header();
+
+            while ( $wp_query->have_posts() ) {
+                $wp_query->the_post();
+
+                $this->render_post();
+            }
+
+            $this->render_loop_footer();
+
+            wp_reset_postdata();
+
+        }else if($this->get_settings('slide-content') == 'static'){
+            //render static content
+            //$items = $this->get_settings('lists')
+        }
+		
     }
 
 
