@@ -457,26 +457,44 @@ class Elementor_Slider_Addon extends Widget_Base
 		}, $post->tags );
 
 		$classes = [
-			'elementor-slider-item',
+			'elementor-slider-addon-item',
 			'elementor-post',
 			implode( ' ', $tags_classes ),
 		];
 
 		?>
 		<article <?php post_class( $classes ); ?>>
-			<a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
 		<?php
 	}
 
 	protected function render_post_footer() {
 		?>
-		</a>
 		</article>
 		<?php
 	}
+
+    protected function render_thumbnail() {
+		$settings = $this->get_settings();
+
+		$settings['thumbnail_size'] = [
+			'id' => get_post_thumbnail_id(),
+		];
+
+		$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size' );
+		?>
+        
+        <a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
+            <div class="elementor-slider-addon-item__img elementor-post__thumbnail">
+                <?php echo $thumbnail_html; ?>
+            </div>
+		</a>
+
+		<?php
+	}
+
     protected function render_text_header() {
 		?>
-		<div class="elementor-slider-item__text">
+		<div class="elementor-slider-addon-item__text">
 		<?php
 	}
 
@@ -492,7 +510,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
 		$tag = Utils::validate_html_tag( $this->get_settings( 'title_tag' ) );
 		?>
-		<<?php echo $tag; ?> class="elementor-slider-item__title">
+		<<?php echo $tag; ?> class="elementor-slider-addon-item__title">
 		<?php the_title(); ?>
 		</<?php echo $tag; ?>>
 		<?php
@@ -504,10 +522,10 @@ class Elementor_Slider_Addon extends Widget_Base
         $categories = get_the_category();
         if ( ! empty( $categories ) ) {
             $separator = ' ';
-            $output = '<div class="elementor-slider-item__categories">';
+            $output = '<div class="elementor-slider-addon-item__categories">';
             foreach( $categories as $category ) {
                 
-                $output .= '<a class="elementor-slider-item__category" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+                $output .= '<a class="elementor-slider-addon-item__category" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
             }
             $output .= '</div>';
             echo trim( $output, $separator );
@@ -518,26 +536,12 @@ class Elementor_Slider_Addon extends Widget_Base
 			return;
 		}
         ?>
-            <div class="elementor-slider-item__excerpt">
+            <div class="elementor-slider-addon-item__excerpt">
                 <?php the_excerpt(); ?>
             </div>
 		<?php
 
     }
-    protected function render_thumbnail() {
-		$settings = $this->get_settings();
-
-		$settings['thumbnail_size'] = [
-			'id' => get_post_thumbnail_id(),
-		];
-
-		$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size' );
-		?>
-		<div class="elementor-portfolio-item__img elementor-post__thumbnail">
-			<?php echo $thumbnail_html; ?>
-		</div>
-		<?php
-	}
 
     protected function render_post_content(){
 		$this->render_text_header();
@@ -588,7 +592,7 @@ class Elementor_Slider_Addon extends Widget_Base
     {
         parent::__construct($data, $args);
 
-        wp_register_script('siema_slider_js', plugins_url('/assets/js/siema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
+        wp_register_script('siema_slider_js', plugins_url('../assets/js/siema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
     }
 
     public function get_script_depends()
