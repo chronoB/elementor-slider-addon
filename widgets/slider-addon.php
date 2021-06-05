@@ -77,16 +77,23 @@ class Elementor_Slider_Addon extends Widget_Base
 					'4' => '4',
 					'5' => '5',
 					'6' => '6',
+                ],
+                'selectors' => [
+					'{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
 				],
-				/*
-                TODO: Add stuff here to add functionality! -> this code is copied from the portfolio of elementor pro
-                'prefix_class' => 'elementor-grid%s-',
-				'frontend_available' => true,
-				'selectors' => [
-					'.elementor-msie {{WRAPPER}} .elementor-portfolio-item' => 'width: calc( 100% / {{SIZE}} )',
-				],*/
 			]
 		);
+        $this->add_control(
+            'hide-left',
+            [
+                'label' => __('Hide Slides on the Left', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'Hide', self::$slug ),
+				'label_off' => __( 'Show', self::$slug ),
+				'return_value' => '1',
+				'default' => '1',
+            ]
+        );
         $this->end_controls_section();
         
         $this->start_controls_section(
@@ -440,8 +447,8 @@ class Elementor_Slider_Addon extends Widget_Base
 			$this->render_filter_menu();
 		}
 		?>
-		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings( 'section_overflow' ) ? 'scroll' : 'hidden'; ?>">
-		<?php
+		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" hideleft="<?php echo $this->get_settings( 'hide-left' ) ?>" slidesdesktop="<?php echo $this->get_settings( 'number-slides' ) ?>" slidestablet="<?php echo $this->get_settings( 'number-slides_tablet' ) ?>" slidesmobile="<?php echo $this->get_settings( 'number-slides_mobile' ) ?>" style="overflow:<?php echo $this->get_settings( 'section_overflow' ) ? 'auto' : 'hidden'; ?>">
+        <?php
 	}
 
 	protected function render_loop_footer() {
@@ -591,17 +598,19 @@ class Elementor_Slider_Addon extends Widget_Base
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
-
-        wp_register_script('siema_slider_js', plugins_url('../assets/js/siema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
+        wp_register_script('siema_slider_js', plugins_url('../assets/js/createSiema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
+        wp_register_script('siema_slider_framework_js', plugins_url('../assets/js/siemaFramework.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
+    
+        wp_register_style('elementor_slider_addon_css', plugins_url('../assets/css/sliderAddon.css', __FILE__));
     }
 
     public function get_script_depends()
     {
-        return [ 'siema_slider_js' ];
+        return [ 'siema_slider_js', 'siema_slider_framework_js' ];
     }
 
     public function get_style_depends()
     {
-        return [  ];
+        return [ 'elementor_slider_addon_css' ];
     }
 }

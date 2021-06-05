@@ -1,0 +1,11 @@
+.siema {
+    transition: opacity .2s ease;
+}
+.siema .gone {
+    opacity:0;
+    transition: opacity .2s ease;
+}
+
+.siema a > * {
+    pointer-events: none !important;
+}
