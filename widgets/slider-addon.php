@@ -203,6 +203,29 @@ class Elementor_Slider_Addon extends Widget_Base
 				],
 			]
         );
+        $this->add_control(
+            'show_categories',
+            [
+                'label' => __('Show Categories', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', self::$slug ),
+				'label_off' => __( 'Hide', self::$slug ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+            ]
+        );
+        
+        $this->add_control(
+            'show_excerpt',
+            [
+                'label' => __('Show Excerpt', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', self::$slug ),
+				'label_off' => __( 'Hide', self::$slug ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+            ]
+        );
 		$this->end_controls_section();
 
         $this->start_controls_section(
@@ -334,6 +357,47 @@ class Elementor_Slider_Addon extends Widget_Base
         );
 
         $this->end_controls_section();
+
+        //###################################
+        // STYLING
+        $this->start_controls_section(
+			'section_design_layout',
+			[
+				'label' => __( 'General', 'elementor-pro' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+        //Option to add distance between elements
+        $this->add_control(
+			'column_gap',
+			[
+				'label' => __( 'Columns Gap', 'elementor-pro' ),
+				'type' => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => ' --grid-column-gap: {{SIZE}}{{UNIT}}',
+				],
+			]
+		);
+        // Option to Show/Hide Overflow
+        $this->add_control(
+            'section_overflow',
+            [
+                'label' => __( 'Section Overflow', self::$slug),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', self::$slug ),
+				'label_off' => __( 'Hide', self::$slug ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+
+            ]
+        );
+
     }
 
     public function query_posts() {
@@ -376,7 +440,7 @@ class Elementor_Slider_Addon extends Widget_Base
 			$this->render_filter_menu();
 		}
 		?>
-		<div class="elementor-slider elementor-grid elementor-posts-container">
+		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings( 'section_overflow' ) ? 'scroll' : 'hidden'; ?>">
 		<?php
 	}
 
@@ -410,13 +474,13 @@ class Elementor_Slider_Addon extends Widget_Base
 		</article>
 		<?php
 	}
-    protected function render_overlay_header() {
+    protected function render_text_header() {
 		?>
-		<div class="elementor-slider-item__overlay">
+		<div class="elementor-slider-item__text">
 		<?php
 	}
 
-	protected function render_overlay_footer() {
+	protected function render_text_footer() {
 		?>
 		</div>
 		<?php
@@ -433,6 +497,33 @@ class Elementor_Slider_Addon extends Widget_Base
 		</<?php echo $tag; ?>>
 		<?php
 	}
+    protected function render_categories() {
+        if ( ! $this->get_settings( 'show_categories' ) ) {
+			return;
+		}
+        $categories = get_the_category();
+        if ( ! empty( $categories ) ) {
+            $separator = ' ';
+            $output = '<div class="elementor-slider-item__categories">';
+            foreach( $categories as $category ) {
+                
+                $output .= '<a class="elementor-slider-item__category" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+            }
+            $output .= '</div>';
+            echo trim( $output, $separator );
+        }
+    }
+    protected function render_excerpt() {
+        if ( ! $this->get_settings( 'show_excerpt' ) ) {
+			return;
+		}
+        ?>
+            <div class="elementor-slider-item__excerpt">
+                <?php the_excerpt(); ?>
+            </div>
+		<?php
+
+    }
     protected function render_thumbnail() {
 		$settings = $this->get_settings();
 
@@ -448,14 +539,22 @@ class Elementor_Slider_Addon extends Widget_Base
 		<?php
 	}
 
+    protected function render_post_content(){
+		$this->render_text_header();
+        //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
+		$this->render_title();
+        $this->render_categories();
+        $this->render_excerpt();
+		$this->render_text_footer();
+    }
+
     protected function render_post() {
 		$this->render_post_header();
 		$this->render_thumbnail();
-		$this->render_overlay_header();
-		$this->render_title();
-		$this->render_overlay_footer();
+        $this->render_post_content();
 		$this->render_post_footer();
 	}
+
     protected function render()
     {
         if ($this->get_settings( 'slide-content' ) == 'query'){
