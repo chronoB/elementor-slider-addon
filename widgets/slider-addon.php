@@ -2,6 +2,7 @@
 
 namespace Elementor_Slider_Addon\Widgets;
 
+use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use Elementor\Widget_Base;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
@@ -177,6 +178,20 @@ class Elementor_Slider_Addon extends Widget_Base
 				],
 			]
 		);
+        
+		$this->end_controls_section();
+
+        $this->start_controls_section(
+            'content_settings_section',
+            [
+                'label' => __('Content Settings', self::$slug),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+            'condition' => [
+                'slide-content' => 'query'
+            ]
+        );
+
         $this->add_control(
             'show_title',
             [
@@ -233,7 +248,50 @@ class Elementor_Slider_Addon extends Widget_Base
 				'default' => 'yes',
             ]
         );
+        
+        $this->add_control(
+            'show_read_more',
+            [
+                'label' => __('Show Read More', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', self::$slug ),
+				'label_off' => __( 'Hide', self::$slug ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+            ]
+        );
+        $this->add_control(
+            'read_more_text',
+            [
+                'label' => __('Read More Text', self::$slug),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __("Read More", self::$slug),
+                'placeholder' => __('Value Attribute', self::$slug),
+			    'condition' => [
+					'show_read_more' => 'yes',
+				],
+            ]
+        );
+        $this->add_control(
+            'read_more_symbol',
+            [
+                'label' => __('Read More Symbol', self::$slug),
+                'type' => \Elementor\Controls_Manager::ICONS,
+                'placeholder' => __('Value Attribute', self::$slug),
+                'default' => [
+					'value' => 'fas fa-arrow-right',
+					'library' => 'fa-solid',
+				],
+				'skin' => 'inline',
+				'label_block' => false,
+				'frontend_available' => true,
+				'condition' => [
+					'show_read_more' => 'yes',
+				],
+            ]
+        );
 		$this->end_controls_section();
+
 
         $this->start_controls_section(
             'navigation_content_section',
@@ -550,12 +608,27 @@ class Elementor_Slider_Addon extends Widget_Base
 
     }
 
+	protected function render_read_more() {
+		if ( ! $this->get_settings( 'show_read_more' ) ) {
+			return;
+		}
+		?>
+			<a class="elementor-post__read-more" href="<?php echo $this->current_permalink; ?>">
+				<?php echo $this->get_settings( 'read_more_text' ); 
+                //TODO: This Icon is not shown.. Check why
+		        Icons_Manager::render_icon( $settings['icon'], [ 'aria-hidden' => 'true' ] );
+                ?>
+            </a>
+		<?php
+	}
+
     protected function render_post_content(){
 		$this->render_text_header();
         //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
 		$this->render_title();
         $this->render_categories();
         $this->render_excerpt();
+        $this->render_read_more();
 		$this->render_text_footer();
     }
 
@@ -576,6 +649,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
             $this->get_posts_tags();
             $this->render_loop_header();
+            
 
             while ( $wp_query->have_posts() ) {
                 $wp_query->the_post();
