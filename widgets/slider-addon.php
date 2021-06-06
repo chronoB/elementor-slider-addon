@@ -301,7 +301,7 @@ class Elementor_Slider_Addon extends Widget_Base
             ]
         );
         $this->add_control(
-            'navigation_show',
+            'show_navigation',
             [
                 'label' => __( 'Show', self::$slug ),
 				'type' => \Elementor\Controls_Manager::SWITCHER ,
@@ -639,6 +639,14 @@ class Elementor_Slider_Addon extends Widget_Base
 		$this->render_post_footer();
 	}
 
+    protected function render_navigation_elements() {
+        //add the navigation elements if wanted
+        if( ! $this->get_settings('show_navigation') ) {
+            return;
+        }
+        //TODO: Add navigation items to dom
+    }
+
     protected function render()
     {
         if ($this->get_settings( 'slide-content' ) == 'query'){
@@ -650,6 +658,7 @@ class Elementor_Slider_Addon extends Widget_Base
             $this->get_posts_tags();
             $this->render_loop_header();
             
+            $this->render_navigation_elements();
 
             while ( $wp_query->have_posts() ) {
                 $wp_query->the_post();
