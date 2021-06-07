@@ -166,7 +166,7 @@ class Elementor_Slider_Addon extends Widget_Base
         if ($this->get_settings('show_filter_bar')) {
             $this->render_filter_menu();
         } ?>
-        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" data-overflow="<?php echo $this->get_settings('section_overflow') ? '' : 'hidden'; ?>">
+        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings('section_overflow') ? '' : 'hidden'; ?>">
         <?php
     }
 
