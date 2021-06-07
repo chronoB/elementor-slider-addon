@@ -2,15 +2,11 @@
 
 namespace Elementor_Slider_Addon\Widgets;
 
-use Elementor\Controls_Manager;
-use Elementor\Group_Control_Image_Size;
-use Elementor\Icons_Manager;
-use Elementor\Repeater;
 use Elementor\Widget_Base;
-use ElementorPro\Core\Utils;
-use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
+use Elementor\Icons_Manager;
 use ElementorPro\Modules\QueryControl\Module as Module_Query;
-
+use ElementorPro\Core\Utils;
+use Elementor\Group_Control_Image_Size;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -64,497 +60,8 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function _register_controls()
     {
-        $this->start_controls_section(
-            'content_section',
-            [
-                'label' => __('Content Type', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-            ]
-        );
-
-        //Selector if the content is static or should come from a query
-        $this->add_control(
-            'slide-content',
-            [
-                'label' => __('Slider Content', self::$slug),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'static',
-                'options' => [
-                    'static' => __('Static', self::$slug),
-                    'query' => __('Query', self::$slug),
-                ],
-            ],
-        );
-        $this->add_responsive_control(
-            'number-slides',
-            [
-                'label' => __('Number of Slides', self::$slug),
-                'type' => Controls_Manager::SELECT,
-                'default' => '3',
-                'tablet_default' => '2',
-                'mobile_default' => '1',
-                'options' => [
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                    '5' => '5',
-                    '6' => '6',
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
-                ],
-                'frontend_available' => true,
-            ]
-        );
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'static_content_section',
-            [
-                'label' => __('Static Content', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-                'condition' => [
-                    'slide-content' => 'static'
-                ]
-            ]
-        );
-        // TODO: Add the repeater for the static slides.
-        // Use the repeater to define one one set of the items we want to repeat look like
-        $repeater = new Repeater();
-
-        $repeater->add_control(
-            'repeater_headline',
-            [
-                'label' => __('Title', self::$slug),
-                'type' => Controls_Manager::TEXT,
-                'default' => __("This is the headline", self::$slug),
-                'placeholder' => __('Value Attribute', self::$slug),
-            ]
-        );
-        $repeater->add_control(
-            'repeater_headline_tag',
-            [
-                'label' => __('Title HTML Tag', self::$slug),
-                'type' => Controls_Manager::SELECT,
-                'options' => [
-                    'h1' => 'H1',
-                    'h2' => 'H2',
-                    'h3' => 'H3',
-                    'h4' => 'H4',
-                    'h5' => 'H5',
-                    'h6' => 'H6',
-                    'div' => 'div',
-                    'span' => 'span',
-                    'p' => 'p',
-                ],
-                'default' => 'h3',
-            ]
-        );
-
-        $repeater->add_control(
-            'repeater_description',
-            [
-                'label' => __('Description', self::$slug),
-                'type' => Controls_Manager::TEXTAREA,
-                'default' => __('This is the description.', self::$slug),
-                'placeholder' => __('Option Contents', self::$slug),
-            ]
-        );
-
-        $repeater->add_control(
-            'repeater_thumbnail',
-            [
-                'label' => __('Choose Image', self::$slug),
-                'type' => Controls_Manager::MEDIA,
-                'default' => [
-                    'url' => \Elementor\Utils::get_placeholder_image_src(),
-                ],
-            ]
-        );
-        $repeater->add_control(
-            'repeater_read_more_url',
-            [
-                'label' => __('URL', self::$slug),
-                'type' => Controls_Manager::URL,
-                'placeholder' => __('https://your-link.com', self::$slug),
-                'show_external' => true,
-                'default' => [
-                    'url' => '',
-                    'is_external' => true,
-                    'nofollow' => true,
-                ],
-            ]
-        );
-        $repeater->add_control(
-            'repeater_read_more_text',
-            [
-                'label' => __('Read More Text', self::$slug),
-                'type' => Controls_Manager::TEXT,
-                'default' => __("Read More", self::$slug),
-                'placeholder' => __('Value Attribute', self::$slug),
-            ]
-        );
-        $repeater->add_control(
-            'repeater_read_more_icon',
-            [
-                'label' => __('Read More Symbol', self::$slug),
-                'type' => Controls_Manager::ICONS,
-                'placeholder' => __('Value Attribute', self::$slug),
-                'default' => [
-                    'value' => 'fas fa-arrow-right',
-                    'library' => 'fa-solid',
-                ],
-                'skin' => 'inline',
-                'label_block' => false,
-                'frontend_available' => true,
-            ]
-        );
-
-        // Add the
-        $this->add_control(
-            'repeater',
-            [
-                'label' => __('Content Elements', self::$slug),
-                'type' => Controls_Manager::REPEATER,
-                'fields' => $repeater->get_controls(),
-                'default' => [
-                    []
-                ],
-                'title_field' => '{{{ repeater_headline }}}'
-            ]
-        );
-
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'query_content_section',
-            [
-                'label' => __('Query', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-                'condition' => [
-                    'slide-content' => 'query'
-                ]
-            ]
-        );
-
-        $this->add_group_control(
-            Group_Control_Related::get_type(),
-            [
-                'name' => 'posts',
-                'presets' => ['full'],
-                'exclude' => [
-                    'posts_per_page', //use the one from Layout section
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'content_settings_section',
-            [
-                'label' => __('Content Settings', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-                'condition' => [
-                    'slide-content' => 'query'
-                ]
-            ]
-        );
-
-        $this->add_control(
-            'show_title',
-            [
-                'label' => __('Show Title', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-        $this->add_control(
-            'title_tag',
-            [
-                'label' => __('Title HTML Tag', self::$slug),
-                'type' => Controls_Manager::SELECT,
-                'options' => [
-                    'h1' => 'H1',
-                    'h2' => 'H2',
-                    'h3' => 'H3',
-                    'h4' => 'H4',
-                    'h5' => 'H5',
-                    'h6' => 'H6',
-                    'div' => 'div',
-                    'span' => 'span',
-                    'p' => 'p',
-                ],
-                'default' => 'h3',
-                'condition' => [
-                    'show_title' => 'yes',
-                ],
-            ]
-        );
-        $this->add_control(
-            'show_categories',
-            [
-                'label' => __('Show Categories', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'show_excerpt',
-            [
-                'label' => __('Show Excerpt', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'show_read_more',
-            [
-                'label' => __('Show Read More', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-        $this->add_control(
-            'read_more_text',
-            [
-                'label' => __('Read More Text', self::$slug),
-                'type' => Controls_Manager::TEXT,
-                'default' => __("Read More", self::$slug),
-                'placeholder' => __('Value Attribute', self::$slug),
-                'condition' => [
-                    'show_read_more' => 'yes',
-                ],
-            ]
-        );
-        $this->add_control(
-            'read_more_symbol',
-            [
-                'label' => __('Read More Symbol', self::$slug),
-                'type' => Controls_Manager::ICONS,
-                'placeholder' => __('Value Attribute', self::$slug),
-                'default' => [
-                    'value' => 'fas fa-arrow-right',
-                    'library' => 'fa-solid',
-                ],
-                'skin' => 'inline',
-                'label_block' => false,
-                'frontend_available' => true,
-                'condition' => [
-                    'show_read_more' => 'yes',
-                ],
-            ]
-        );
-        $this->end_controls_section();
-
-
-        $this->start_controls_section(
-            'navigation_content_section',
-            [
-                'label' => __('Navigation', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-            ]
-        );
-        $this->add_control(
-            'show_navigation',
-            [
-                'label' => __('Show', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-        $this->add_control(
-            'navigation_position',
-            [
-                'label' => __('Position', self::$slug),
-                'type' => Controls_Manager::SELECT,
-                'options' => [
-                    'above' => __('Above', self::$slug),
-                    'around' => __('Around', self::$slug),
-                    'Below' => __('Below', self::$slug),
-                ],
-                'condition' => [
-                    'show_navigation' => 'yes'
-                ],
-                'default' => 'around',
-                'toggle' => true,
-            ]
-        );
-        $this->add_control(
-            'navigation_alignment',
-            [
-                'label' => __('Alignment', self::$slug),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'left' => [
-                        'title' => __('Left', self::$slug),
-                        'icon' => 'fa fa-align-left',
-                    ],
-                    'center' => [
-                        'title' => __('Center', self::$slug),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'right' => [
-                        'title' => __('Right', self::$slug),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                ],
-                'conditions' => [
-                    'relation' => 'and',
-                    'terms' => [
-                        [
-                            'name' => 'show_navigation',
-                            'operator' => '==',
-                            'value' => 'yes'
-                        ],
-                        [
-                            'name' => 'navigation_position',
-                            'operator' => '!=',
-                            'value' => 'around'
-                        ]
-                    ]
-                ],
-                'default' => 'center',
-                'toggle' => true,
-            ]
-        );
-        $this->add_control(
-            'icon-prev',
-            [
-                'label' => __('Previous Icon', self::$slug),
-                'type' => Controls_Manager::ICONS,
-                'default' => [
-                    'value' => 'fas fa-arrow-left',
-                    'library' => 'fa-solid',
-                ],
-                'condition' => [
-                    'show_navigation' => 'yes'
-                ],
-                'skin' => 'inline',
-                'label_block' => false,
-                'frontend_available' => true,
-            ]
-        );
-        $this->add_control(
-            'icon-next',
-            [
-                'label' => __('Next Icon', self::$slug),
-                'type' => Controls_Manager::ICONS,
-                'default' => [
-                    'value' => 'fas fa-arrow-right',
-                    'library' => 'fa-solid',
-                ],
-                'condition' => [
-                    'show_navigation' => 'yes'
-                ],
-                'skin' => 'inline',
-                'label_block' => false,
-                'frontend_available' => true,
-            ]
-        );
-
-        $this->end_controls_section();
-
-        //TODO: Add configuration from siema api
-        $this->start_controls_section(
-            'siema_content_section',
-            [
-                'label' => __('Slider Configuration', self::$slug),
-                'tab' => Controls_Manager::TAB_CONTENT,
-            ]
-        );
-
-        $this->end_controls_section();
-
-        //###################################
-        // STYLING
-        $this->start_controls_section(
-            'section_design_layout',
-            [
-                'label' => __('General', 'elementor-pro'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
-        //Option to add distance between elements
-        $this->add_control(
-            'column_gap',
-            [
-                'label' => __('Columns Gap', 'elementor-pro'),
-                'type' => Controls_Manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}}' => ' --grid-column-gap: {{SIZE}}{{UNIT}}',
-                ],
-            ]
-        );
-        // Option to Show/Hide Overflow
-        $this->add_control(
-            'section_overflow',
-            [
-                'label' => __('Section Overflow', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', self::$slug),
-                'label_off' => __('Hide', self::$slug),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-        $this->add_control(
-            'hide-left',
-            [
-                'label' => __('Hide Slides on the Left', self::$slug),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Hide', self::$slug),
-                'label_off' => __('Show', self::$slug),
-                'return_value' => '1',
-                'default' => '1',
-                'frontend_available' => true,
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'static_content_style',
-            [
-                'label' => __('Static Content', 'elementor-pro'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
-        $this->add_group_control(
-            Group_Control_Image_Size::get_type(),
-            [
-                'name' => 'static-image', // // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `thumbnail_size` and `thumbnail_custom_dimension`.
-                'exclude' => [],
-                'include' => [],
-                'default' => 'medium',
-            ]
-        );
-        $this->end_controls_section();
+        include_once('helper/controls.php');
+        
     }
 
     protected function render()
@@ -671,22 +178,22 @@ class Elementor_Slider_Addon extends Widget_Base
         $this->render_footer();
     }
 
-protected function render_post_header()
-{
-    global $post;
+    protected function render_post_header()
+    {
+        global $post;
 
-    $tags_classes = array_map(function ($tag) {
-        return 'elementor-filter-' . $tag->term_id;
-    }, $post->tags);
+        $tags_classes = array_map(function ($tag) {
+            return 'elementor-filter-' . $tag->term_id;
+        }, $post->tags);
 
-    $classes = [
-        'elementor-slider-addon-item',
-        'elementor-post',
-        implode(' ', $tags_classes),
-    ]; ?>
-    <article <?php post_class($classes); ?>>
-    <?php
-}
+        $classes = [
+            'elementor-slider-addon-item',
+            'elementor-post',
+            implode(' ', $tags_classes),
+        ]; ?>
+        <article <?php post_class($classes); ?>>
+        <?php
+    }
 
     protected function render_post_thumbnail()
     {
@@ -698,8 +205,8 @@ protected function render_post_header()
 
         $thumbnail_html = Group_Control_Image_Size::get_attachment_image_html($settings, 'thumbnail_size'); ?>
 
-        <a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
-            <div class="elementor-slider-addon-item__img elementor-post__thumbnail">
+        <a class="elementor-slider-addon-item-thumbnail" href="<?php echo get_permalink(); ?>">
+            <div class="elementor-slider-addon-item__thumbnail__img">
                 <?php echo $thumbnail_html; ?>
             </div>
         </a>
@@ -709,34 +216,34 @@ protected function render_post_header()
 
     protected function render_post_content()
     {
-        $this->render_text_header();
+        $this->render_content_header();
         //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
         $this->render_post_title();
         $this->render_post_categories();
         $this->render_post_excerpt();
         $this->render_post_read_more();
-        $this->render_text_footer();
+        $this->render_content_footer();
     }
 
-protected function render_text_header()
-{
-    ?>
-    <div class="elementor-slider-addon-item__text">
-    <?php
-}
-
-protected function render_post_title()
-{
-    if (!$this->get_settings('show_title')) {
-        return;
+    protected function render_content_header()
+    {
+        ?>
+        <div class="elementor-slider-addon-item-content">
+        <?php
     }
 
-    $tag = Utils::validate_html_tag($this->get_settings('title_tag')); ?>
-    <<?php echo $tag; ?> class="elementor-slider-addon-item__title">
-    <?php the_title(); ?>
-    </<?php echo $tag; ?>>
-    <?php
-}
+    protected function render_post_title()
+    {
+        if (!$this->get_settings('show_title')) {
+            return;
+        }
+
+        $tag = Utils::validate_html_tag($this->get_settings('title_tag')); ?>
+        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
+        <?php the_title(); ?>
+        </<?php echo $tag; ?>>
+        <?php
+    }
 
     protected function render_post_categories()
     {
@@ -746,9 +253,9 @@ protected function render_post_title()
         $categories = get_the_category();
         if (!empty($categories)) {
             $separator = ' ';
-            $output = '<div class="elementor-slider-addon-item__categories">';
+            $output = '<div class="elementor-slider-addon-item-content__categories">';
             foreach ($categories as $category) {
-                $output .= '<a class="elementor-slider-addon-item__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
+                $output .= '<a class="elementor-slider-addon-item-content__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
             }
             $output .= '</div>';
             echo trim($output, $separator);
@@ -760,7 +267,7 @@ protected function render_post_title()
         if (!$this->get_settings('show_excerpt')) {
             return;
         } ?>
-        <div class="elementor-slider-addon-item__excerpt">
+        <div class="elementor-slider-addon-item-content__excerpt">
             <?php the_excerpt(); ?>
         </div>
         <?php
@@ -771,14 +278,14 @@ protected function render_post_title()
         if (!$this->get_settings('show_read_more')) {
             return;
         } ?>
-        <a class="elementor-post__read-more" href="<?php echo $this->current_permalink; ?>">
+        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $this->current_permalink; ?>">
             <?php echo $this->get_settings('read_more_text');
             Icons_Manager::render_icon($this->get_settings('read_more_symbol'), ['aria-hidden' => 'true']); ?>
         </a>
         <?php
     }
 
-    protected function render_text_footer()
+    protected function render_content_footer()
     {
         ?>
         </div>
@@ -818,8 +325,8 @@ protected function render_post_title()
     {
         ?>
 
-        <a class="elementor-post__thumbnail__link" href="<?php echo $item['repeater_read_more_url']; ?>">
-            <div class="elementor-slider-addon-item__img elementor-post__thumbnail">
+        <a class="elementor-slider-addon-item-thumbnail" href="<?php echo $item['repeater_read_more_url']; ?>">
+            <div class="elementor-slider-addon-item-thumbnail__img">
                 <?php echo wp_get_attachment_image($item['repeater_thumbnail']['id'], $this->get_settings('static-image_size')); ?>
             </div>
         </a>
@@ -830,19 +337,19 @@ protected function render_post_title()
 
     protected function render_static_content($item)
     {
-        $this->render_text_header();
+        $this->render_content_header();
         //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
         $this->render_static_title($item);
         $this->render_static_description($item);
         $this->render_static_read_more($item);
-        $this->render_text_footer();
+        $this->render_content_footer();
 
     }
     
     protected function render_static_title($item)
     {
         $tag = Utils::validate_html_tag($item['repeater_headline_tag']); ?>
-        <<?php echo $tag; ?> class="elementor-slider-addon-item__title">
+        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
         <?php echo $item['repeater_headline'] ?>
         </<?php echo $tag; ?>>
         <?php
@@ -851,7 +358,7 @@ protected function render_post_title()
     protected function render_static_description($item)
     {
         ?>
-        <div class="elementor-slider-addon-item__excerpt">
+        <div class="elementor-slider-addon-item-content__excerpt">
             <?php echo $item['repeater_description'] ?>
         </div>
         <?php
@@ -864,7 +371,7 @@ protected function render_post_title()
             return;
         }
         ?>
-        <a class="elementor-post__read-more" href="<?php echo $item['repeater_read_more_url']; ?>">
+        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']; ?>">
             <?php
             echo $item['repeater_read_more_text'];
             Icons_Manager::render_icon($item['repeater_read_more_icon'], ['aria-hidden' => 'true']);
