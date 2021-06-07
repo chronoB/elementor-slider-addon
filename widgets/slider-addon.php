@@ -83,19 +83,6 @@ class Elementor_Slider_Addon extends Widget_Base
                     '{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
                 ],
                 'frontend_available' => true,
-
-            ]
-        );
-        $this->add_control(
-            'hide-left',
-            [
-                'label' => __('Hide Slides on the Left', self::$slug),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Hide', self::$slug),
-                'label_off' => __('Show', self::$slug),
-                'return_value' => '1',
-                'default' => '1',
-                'frontend_available' => true,
             ]
         );
         $this->end_controls_section();
@@ -454,6 +441,18 @@ class Elementor_Slider_Addon extends Widget_Base
                 'return_value' => 'yes',
                 'default' => 'yes',
 
+            ]
+        );
+        $this->add_control(
+            'hide-left',
+            [
+                'label' => __('Hide Slides on the Left', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Hide', self::$slug),
+                'label_off' => __('Show', self::$slug),
+                'return_value' => '1',
+                'default' => '1',
+                'frontend_available' => true,
             ]
         );
     }
