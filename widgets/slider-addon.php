@@ -379,7 +379,7 @@ class Elementor_Slider_Addon extends Widget_Base
                     'library' => 'fa-solid',
                 ],
                 'condition' => [
-                    'navigation_show' => 'yes'
+                    'show_navigation' => 'yes'
                 ],
                 'skin' => 'inline',
                 'label_block' => false,
@@ -396,7 +396,7 @@ class Elementor_Slider_Addon extends Widget_Base
                     'library' => 'fa-solid',
                 ],
                 'condition' => [
-                    'navigation_show' => 'yes'
+                    'show_navigation' => 'yes'
                 ],
                 'skin' => 'inline',
                 'label_block' => false,
