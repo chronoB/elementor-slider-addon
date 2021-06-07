@@ -697,6 +697,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render()
     {
+        $this->render_navigation_elements();
         if ($this->get_settings('slide-content') == 'query') {
             //render query
             $this->query_posts();
@@ -704,7 +705,7 @@ class Elementor_Slider_Addon extends Widget_Base
             $wp_query = $this->get_query();
 
             $this->get_posts_tags();
-            $this->render_navigation_elements();
+            
             $this->render_loop_header();
 
 
@@ -717,9 +718,21 @@ class Elementor_Slider_Addon extends Widget_Base
             $this->render_loop_footer();
 
             wp_reset_postdata();
-        } elseif ($this->get_settings('slide-content') == 'static') {
+        } 
+        elseif ($this->get_settings('slide-content') == 'static') {
             //render static content
-            //$items = $this->get_settings('lists')
+            $this->render_loop_header();
+
+            $items = $this->get_settings('repeater')
+            if ($items){
+                foreach ($items as $item){
+                    //render elements.
+                    //create functions for static rendering
+                    //rename old render function to be post specific
+                }
+            }
+
+            $this->render_loop_footer();
         }
     }
 
