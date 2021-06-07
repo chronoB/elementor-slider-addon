@@ -97,32 +97,32 @@ class Elementor_Slider_Addon extends Widget_Base
                 ]
             ]
         );
-        /* TODO: Add the repeater for the static slides.
+        // TODO: Add the repeater for the static slides.
         // Use the repeater to define one one set of the items we want to repeat look like
         $repeater = new Repeater();
 
         $repeater->add_control(
-            'option_value',
+            'repeater_headline',
             [
-                'label' => __('Option Value', self::$slug),
+                'label' => __('Thumbnail', self::$slug),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => __("Gysi über seinen Fußball-Sachverstand:", self::$slug),
+                'default' => __("This is the headline", self::$slug),
                 'placeholder' => __('Value Attribute', self::$slug),
             ]
         );
 
         $repeater->add_control(
-            'option_contents',
+            'repeater_description',
             [
-                'label' => __('Option Contents', self::$slug),
+                'label' => __('Description', self::$slug),
                 'type' => \Elementor\Controls_Manager::TEXTAREA,
-                'default' => __('"Ich bin der klassische deutsche Sachverständige von Fußball: Ich habe keine Ahnung, schaue mir alles an und weiß alles besser. ... Nicht, dass ich wirklich was davon verstünde. Aber das schätze ich ja auch, trotzdem dann meine Meinung zu sagen."', self::$slug),
+                'default' => __('This is the description.', self::$slug),
                 'placeholder' => __('Option Contents', self::$slug),
             ]
         );
 
         $repeater->add_control(
-            'option_image',
+            'repeater_thumbnail',
             [
                 'label' => __('Choose Image', self::$slug),
                 'type' => \Elementor\Controls_Manager::MEDIA,
@@ -131,20 +131,61 @@ class Elementor_Slider_Addon extends Widget_Base
                 ],
             ]
         );
+        $repeater->add_control(
+            'repeater_read_more_url',
+            [
+                'label' => __('URL', self::$slug),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => __( 'https://your-link.com', self::$slug ),
+				'show_external' => true,
+				'default' => [
+					'url' => '',
+					'is_external' => true,
+					'nofollow' => true,
+				],
+            ]
+        );
+        $repeater->add_control(
+            'repeater_read_more_text',
+            [
+                'label' => __('Read More Text', self::$slug),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __("Read More", self::$slug),
+                'placeholder' => __('Value Attribute', self::$slug),
+            ]
+        );
+        $repeater->add_control(
+            'repeater_read_more_icon',
+            [
+                'label' => __('Read More Symbol', self::$slug),
+                'type' => \Elementor\Controls_Manager::ICONS,
+                'placeholder' => __('Value Attribute', self::$slug),
+                'default' => [
+                    'value' => 'fas fa-arrow-right',
+                    'library' => 'fa-solid',
+                ],
+                'skin' => 'inline',
+                'label_block' => false,
+                'frontend_available' => true,
+            ]
+        );
 
         // Add the
         $this->add_control(
-            'options_list',
+            'repeater',
             [
-                'label' => __('Repeater List', self::$slug),
+                'label' => __('Content Elements', self::$slug),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $repeater->get_controls(),
                 'default' => [
                     []
                 ],
-                'title_field' => '{{{ option_value }}}'
+                'title_field' => '{{{ repeater_headline }}}'
             ]
-        );*/
+        );
+
+
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -440,7 +481,6 @@ class Elementor_Slider_Addon extends Widget_Base
                 'label_off' => __('Hide', self::$slug),
                 'return_value' => 'yes',
                 'default' => 'yes',
-
             ]
         );
         $this->add_control(
