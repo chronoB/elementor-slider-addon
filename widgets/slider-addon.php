@@ -11,7 +11,6 @@ use ElementorPro\Core\Utils;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
 use ElementorPro\Modules\QueryControl\Module as Module_Query;
 
-//TODO: check if you could rewrite this query stuff without elementor pro
 
 if (!defined('ABSPATH')) {
     exit;

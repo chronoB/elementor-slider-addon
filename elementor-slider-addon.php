@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Elementor Slider Addon
- * Description: Lightweight easy-to-use slider widget for Elementor.
+ * Description: Lightweight easy-to-use slider widget for Elementor. Needs Elementor Pro.
  * Author URI:  https://www.parallachs.de
  * Version:     1.0.0
  * Author:      Finn Bayer
@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
 add_action('elementor/widgets/widgets_registered', function () {
     require_once('widgets/slider-addon.php');
 
-    $elementor_slider_addon =	new Widgets\Elementor_Slider_Addon();
+    $elementor_slider_addon = new Widgets\Elementor_Slider_Addon();
     // Let Elementor know about our widget
     Plugin::instance()->widgets_manager->register_widget_type($elementor_slider_addon);
 });
