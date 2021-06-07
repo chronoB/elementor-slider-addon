@@ -318,25 +318,16 @@ class Elementor_Slider_Addon extends Widget_Base
             'navigation_position',
             [
                 'label' => __('Position', self::$slug),
-                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
-                    'left' => [
-                        'title' => __('Above', self::$slug),
-                        'icon' => 'fa fa-align-left',
-                    ],
-                    'center' => [
-                        'title' => __('Around', self::$slug),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'right' => [
-                        'title' => __('Below', self::$slug),
-                        'icon' => 'fa fa-align-right',
-                    ],
+                    'above' => __('Above', self::$slug),
+                    'around' => __('Around', self::$slug),
+                    'Below' => __('Below', self::$slug),
                 ],
                 'condition' => [
-                    'navigation_show' => 'yes'
+                    'show_navigation' => 'yes'
                 ],
-                'default' => 'center',
+                'default' => 'around',
                 'toggle' => true,
             ]
         );
@@ -363,14 +354,14 @@ class Elementor_Slider_Addon extends Widget_Base
                     'relation' => 'and',
                     'terms' => [
                         [
-                            'name' => 'navigation_show',
+                            'name' => 'show_navigation',
                             'operator' => '==',
                             'value' => 'yes'
                         ],
                         [
                             'name' => 'navigation_position',
                             'operator' => '!=',
-                            'value' => 'center'
+                            'value' => 'around'
                         ]
                     ]
                 ],
@@ -651,9 +642,6 @@ class Elementor_Slider_Addon extends Widget_Base
         if (! $this->get_settings('show_navigation')) {
             return;
         }
-        //TODO: Add navigation items to dom
-        //render arrows
-        //arrows absolute
         ?>
         <div class="arrow-right prev">
         <?php
