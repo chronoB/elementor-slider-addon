@@ -104,10 +104,29 @@ class Elementor_Slider_Addon extends Widget_Base
         $repeater->add_control(
             'repeater_headline',
             [
-                'label' => __('Thumbnail', self::$slug),
+                'label' => __('Title', self::$slug),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __("This is the headline", self::$slug),
                 'placeholder' => __('Value Attribute', self::$slug),
+            ]
+        );
+        $repeater->add_control(
+            'repeater_headline_tag',
+            [
+                'label' => __('Title HTML Tag', self::$slug),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'h1' => 'H1',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                    'div' => 'div',
+                    'span' => 'span',
+                    'p' => 'p',
+                ],
+                'default' => 'h3',
             ]
         );
 
@@ -495,8 +514,36 @@ class Elementor_Slider_Addon extends Widget_Base
                 'frontend_available' => true,
             ]
         );
+        
+        $this->end_controls_section();
+        
+        $this->start_controls_section(
+            'static_content_style',
+            [
+                'label' => __('Static Content', 'elementor-pro'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+        $this->add_group_control(
+			\Elementor\Group_Control_Image_Size::get_type(),
+			[
+				'name' => 'static-image', // // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `thumbnail_size` and `thumbnail_custom_dimension`.
+				'exclude' => [],
+				'include' => [],
+				'default' => 'medium',
+			]
+		);
     }
 
+    
+    
+    
+    
+    //#####################################################################################################################################
+    
+    
+    
+    
     public function query_posts()
     {
         $query_args = [
@@ -566,14 +613,8 @@ class Elementor_Slider_Addon extends Widget_Base
 		<?php
     }
 
-    protected function render_post_footer()
-    {
-        ?>
-		</article>
-		<?php
-    }
 
-    protected function render_thumbnail()
+    protected function render_post_thumbnail()
     {
         $settings = $this->get_settings();
 
@@ -605,7 +646,7 @@ class Elementor_Slider_Addon extends Widget_Base
 		</div>
 		<?php
     }
-    protected function render_title()
+    protected function render_post_title()
     {
         if (! $this->get_settings('show_title')) {
             return;
@@ -617,7 +658,7 @@ class Elementor_Slider_Addon extends Widget_Base
 		</<?php echo $tag; ?>>
 		<?php
     }
-    protected function render_categories()
+    protected function render_post_categories()
     {
         if (! $this->get_settings('show_categories')) {
             return;
@@ -633,7 +674,7 @@ class Elementor_Slider_Addon extends Widget_Base
             echo trim($output, $separator);
         }
     }
-    protected function render_excerpt()
+    protected function render_post_excerpt()
     {
         if (! $this->get_settings('show_excerpt')) {
             return;
@@ -644,7 +685,7 @@ class Elementor_Slider_Addon extends Widget_Base
 		<?php
     }
 
-    protected function render_read_more()
+    protected function render_post_read_more()
     {
         if (! $this->get_settings('show_read_more')) {
             return;
@@ -660,19 +701,88 @@ class Elementor_Slider_Addon extends Widget_Base
     {
         $this->render_text_header();
         //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
-        $this->render_title();
-        $this->render_categories();
-        $this->render_excerpt();
-        $this->render_read_more();
+        $this->render_post_title();
+        $this->render_post_categories();
+        $this->render_post_excerpt();
+        $this->render_post_read_more();
         $this->render_text_footer();
     }
 
     protected function render_post()
     {
         $this->render_post_header();
-        $this->render_thumbnail();
+        $this->render_post_thumbnail();
         $this->render_post_content();
-        $this->render_post_footer();
+        $this->render_footer();
+    }
+
+    protected function render_static_header(){
+        ?>
+		<article class='elementor-slider-addon-item'>
+		<?php
+    }
+    protected function render_footer()
+    {
+        ?>
+		</article>
+		<?php
+    }
+    protected function render_static_thumbnail($item){
+        ?>
+	
+        <a class="elementor-post__thumbnail__link" href="<?php echo $item['repeater_read_more_url']; ?>">
+            <div class="elementor-slider-addon-item__img elementor-post__thumbnail">
+                <?php echo wp_get_attachment_image( $item['repeater_thumbnail']['id'],$this->get_settings('static-image_size')); ?>
+            </div>
+		</a>
+
+		<?php
+
+    }
+
+    protected function render_static_title($item){
+        $tag = Utils::validate_html_tag($item['repeater_headline_tag']); ?>
+		<<?php echo $tag; ?> class="elementor-slider-addon-item__title">
+		<?php echo $item['repeater_headline'] ?>
+		</<?php echo $tag; ?>>
+		<?php
+    }
+
+    protected function render_static_description($item){ 
+        ?>
+        <div class="elementor-slider-addon-item__excerpt">
+            <?php echo $item['repeater_description'] ?>
+        </div>
+        <?php
+
+    }
+    protected function render_static_read_more($item){
+        if(!$item['repeater_read_more_url']){
+            return;
+        }
+        ?>
+        <a class="elementor-post__read-more" href="<?php echo $item['repeater_read_more_url']; ?>">
+            <?php echo $item['repeater_read_more_text'];
+            Icons_Manager::render_icon($item['repeater_read_more_icon'], [ 'aria-hidden' => 'true' ]); ?>
+        </a>
+    <?php
+
+    }
+
+    protected function render_static_content($item){
+        $this->render_text_header();
+        //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
+        $this->render_static_title($item);
+        $this->render_static_description($item);
+        $this->render_static_read_more($item);
+        $this->render_text_footer();
+
+    }
+    protected function render_static_item($item){
+        $this->render_static_header();
+        $this->render_static_thumbnail($item);
+        $this->render_static_content($item);
+        $this->render_footer();
     }
 
     protected function render_navigation_elements()
@@ -723,12 +833,10 @@ class Elementor_Slider_Addon extends Widget_Base
             //render static content
             $this->render_loop_header();
 
-            $items = $this->get_settings('repeater')
+            $items = $this->get_settings('repeater');
             if ($items){
                 foreach ($items as $item){
-                    //render elements.
-                    //create functions for static rendering
-                    //rename old render function to be post specific
+                    $this->render_static_item($item);
                 }
             }
 
