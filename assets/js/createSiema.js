@@ -11,9 +11,11 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
     }
 
     initSiema(){
-    
+        var siemaSlider = [];
+        var mobileBreakpoint = elementorFrontend.config.responsive.activeBreakpoints.mobile.value;
+        var tabletBreakpoint = elementorFrontend.config.responsive.activeBreakpoints.tablet.value;
+        
         const siemas = document.querySelectorAll('.siema');
-        console.log(siemas);
         for(const siema of siemas) {
     
             siema.style.display = "block"; // Override elementor display fix to block
@@ -24,44 +26,47 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 arr[i].style.marginTop="0"; // fix elementor margintop post stuff
                 arr[i].style.paddingRight="20px"; // Space between Slides
             }
-    
-    
+
+            var hideLeft =  this.getElementSettings( 'hide-left' )
             function changeSlide() {
-                if(siema.getAttribute("hideleft") === "1") {
-                    this.innerElements.forEach((slide, i) => {
-                        if(i >= this.currentSlide) {
-                            this.innerElements[i].classList.remove('gone');
+                if(hideLeft === "1") {
+                    siemaSlider[siema].innerElements.forEach((slide, i) => {
+                        if(i >= siemaSlider[siema].currentSlide) {
+                            siemaSlider[siema].innerElements[i].classList.remove('gone');
                         } else {
-                            this.innerElements[i].classList.add('gone');
+                            siemaSlider[siema].innerElements[i].classList.add('gone');
                         }
                     })
                 }
             }
     
-            let New_siema = new Siema({
-                perPage: {
-                    0: (siema.getAttribute("slidesmobile") != undefined) ? siema.getAttribute("slidesmobile") : "1", 
-                    768: (siema.getAttribute("slidestablet") != undefined) ? siema.getAttribute("slidestablet") : "2",
-                    1025: (siema.getAttribute("slidesdesktop") != undefined) ? siema.getAttribute("slidesdesktop") : "3"
-                },
-                onChange: changeSlide,
-                overflow:false,
-                selector: siema,
-            })
+            
+            if(siemaSlider[siema] == undefined){
+                siemaSlider[siema] = new Siema({
+                    perPage: {
+                        0: (this.getElementSettings( 'number-slides_mobile' ) != undefined) ? this.getElementSettings( 'number-slides_mobile' ) : "1", 
+                        [mobileBreakpoint] : (this.getElementSettings( 'number-slides_tablet' ) != undefined) ? this.getElementSettings( 'number-slides_tablet' ) : "2",
+                        [tabletBreakpoint] : (this.getElementSettings( 'number-slides' ) != undefined) ? this.getElementSettings( 'number-slides' ) : "3"
+                    },
+                    onChange: changeSlide,
+                    overflow: false,
+                    selector: siema,
+                })
+            }
     
     
-            if(siema.querySelector(".prev") != undefined) {
-                let prev = siema.querySelector('.prev');
+            if(siema.parentNode.querySelector(".prev") != undefined) {
+                let prev = siema.parentNode.querySelector('.prev');
                 prev.addEventListener('click', function(event) {
                     event.preventDefault();
-                    New_siema.prev()
+                    siemaSlider[siema].prev()
                 });	}
     
-            if(siema.querySelector(".next") != undefined) {
-                let next = siema.querySelector('.next');
+            if(siema.parentNode.querySelector(".next") != undefined) {
+                let next = siema.parentNode.querySelector('.next');
                 next.addEventListener('click', function(event) {
                     event.preventDefault();
-                    New_siema.next()
+                    siemaSlider[siema].next()
                 });
             }
     

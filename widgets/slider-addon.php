@@ -82,6 +82,8 @@ class Elementor_Slider_Addon extends Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
                 ],
+                'frontend_available' => true,
+
             ]
         );
         $this->add_control(
@@ -93,6 +95,7 @@ class Elementor_Slider_Addon extends Widget_Base
                 'label_off' => __('Show', self::$slug),
                 'return_value' => '1',
                 'default' => '1',
+                'frontend_available' => true,
             ]
         );
         $this->end_controls_section();
@@ -506,7 +509,7 @@ class Elementor_Slider_Addon extends Widget_Base
         if ($this->get_settings('show_filter_bar')) {
             $this->render_filter_menu();
         } ?>
-		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" hideleft="<?php echo $this->get_settings('hide-left') ?>" slidesdesktop="<?php echo $this->get_settings('number-slides') ?>" slidestablet="<?php echo $this->get_settings('number-slides_tablet') ?>" slidesmobile="<?php echo $this->get_settings('number-slides_mobile') ?>" style="overflow:<?php echo $this->get_settings('section_overflow') ? 'auto' : 'hidden'; ?>">
+		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" data-overflow="<?php echo $this->get_settings('section_overflow') ? '' : 'hidden'; ?>">
         <?php
     }
 
@@ -618,8 +621,7 @@ class Elementor_Slider_Addon extends Widget_Base
         } ?>
 			<a class="elementor-post__read-more" href="<?php echo $this->current_permalink; ?>">
 				<?php echo $this->get_settings('read_more_text');
-        //TODO: This Icon is not shown.. Check why
-        Icons_Manager::render_icon($settings['icon'], [ 'aria-hidden' => 'true' ]); ?>
+                Icons_Manager::render_icon($this->get_settings('read_more_symbol'), [ 'aria-hidden' => 'true' ]); ?>
             </a>
 		<?php
     }
@@ -650,6 +652,20 @@ class Elementor_Slider_Addon extends Widget_Base
             return;
         }
         //TODO: Add navigation items to dom
+        //render arrows
+        //arrows absolute
+        ?>
+        <div class="arrow-right prev">
+        <?php
+                Icons_Manager::render_icon($this->get_settings('icon-prev'), [ 'aria-hidden' => 'true' ]); 
+        ?>
+        </div>
+        <div class="arrow-left next">
+        <?php
+                Icons_Manager::render_icon($this->get_settings('icon-next'), [ 'aria-hidden' => 'true' ]); 
+        ?>
+        </div>
+        <?php
     }
 
     protected function render()
@@ -661,9 +677,9 @@ class Elementor_Slider_Addon extends Widget_Base
             $wp_query = $this->get_query();
 
             $this->get_posts_tags();
+            $this->render_navigation_elements();
             $this->render_loop_header();
 
-            $this->render_navigation_elements();
 
             while ($wp_query->have_posts()) {
                 $wp_query->the_post();
