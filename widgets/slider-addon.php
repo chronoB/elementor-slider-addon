@@ -64,39 +64,39 @@ class Elementor_Slider_Addon extends Widget_Base
             ],
         );
         $this->add_responsive_control(
-			'number-slides',
-			[
-				'label' => __( 'Number of Slides', self::$slug ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '3',
-				'tablet_default' => '2',
-				'mobile_default' => '1',
-				'options' => [
-					'1' => '1',
-					'2' => '2',
-					'3' => '3',
-					'4' => '4',
-					'5' => '5',
-					'6' => '6',
+            'number-slides',
+            [
+                'label' => __('Number of Slides', self::$slug),
+                'type' => Controls_Manager::SELECT,
+                'default' => '3',
+                'tablet_default' => '2',
+                'mobile_default' => '1',
+                'options' => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                    '5' => '5',
+                    '6' => '6',
                 ],
                 'selectors' => [
-					'{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
-				],
-			]
-		);
+                    '{{WRAPPER}} .siema' => 'grid-template-columns: repeat({{options}},1fr);',
+                ],
+            ]
+        );
         $this->add_control(
             'hide-left',
             [
                 'label' => __('Hide Slides on the Left', self::$slug),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'Hide', self::$slug ),
-				'label_off' => __( 'Show', self::$slug ),
-				'return_value' => '1',
-				'default' => '1',
+                'label_on' => __('Hide', self::$slug),
+                'label_off' => __('Show', self::$slug),
+                'return_value' => '1',
+                'default' => '1',
             ]
         );
         $this->end_controls_section();
-        
+
         $this->start_controls_section(
             'static_content_section',
             [
@@ -156,7 +156,7 @@ class Elementor_Slider_Addon extends Widget_Base
             ]
         );*/
         $this->end_controls_section();
-        
+
         $this->start_controls_section(
             'query_content_section',
             [
@@ -168,27 +168,27 @@ class Elementor_Slider_Addon extends Widget_Base
             ]
         );
 
-		$this->add_group_control(
-			Group_Control_Related::get_type(),
-			[
-				'name' => 'posts',
-				'presets' => [ 'full' ],
-				'exclude' => [
-					'posts_per_page', //use the one from Layout section
-				],
-			]
-		);
-        
-		$this->end_controls_section();
+        $this->add_group_control(
+            Group_Control_Related::get_type(),
+            [
+                'name' => 'posts',
+                'presets' => [ 'full' ],
+                'exclude' => [
+                    'posts_per_page', //use the one from Layout section
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
 
         $this->start_controls_section(
             'content_settings_section',
             [
                 'label' => __('Content Settings', self::$slug),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-            'condition' => [
-                'slide-content' => 'query'
+                'condition' => [
+                    'slide-content' => 'query'
+                ]
             ]
         );
 
@@ -197,67 +197,67 @@ class Elementor_Slider_Addon extends Widget_Base
             [
                 'label' => __('Show Title', self::$slug),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
             ]
         );
         $this->add_control(
-			'title_tag',
-			[
-				'label' => __( 'Title HTML Tag', self::$slug ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'options' => [
-					'h1' => 'H1',
-					'h2' => 'H2',
-					'h3' => 'H3',
-					'h4' => 'H4',
-					'h5' => 'H5',
-					'h6' => 'H6',
-					'div' => 'div',
-					'span' => 'span',
-					'p' => 'p',
-				],
-				'default' => 'h3',
-				'condition' => [
-					'show_title' => 'yes',
-				],
-			]
+            'title_tag',
+            [
+                'label' => __('Title HTML Tag', self::$slug),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'h1' => 'H1',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                    'div' => 'div',
+                    'span' => 'span',
+                    'p' => 'p',
+                ],
+                'default' => 'h3',
+                'condition' => [
+                    'show_title' => 'yes',
+                ],
+            ]
         );
         $this->add_control(
             'show_categories',
             [
                 'label' => __('Show Categories', self::$slug),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
             ]
         );
-        
+
         $this->add_control(
             'show_excerpt',
             [
                 'label' => __('Show Excerpt', self::$slug),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
             ]
         );
-        
+
         $this->add_control(
             'show_read_more',
             [
                 'label' => __('Show Read More', self::$slug),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
             ]
         );
         $this->add_control(
@@ -267,9 +267,9 @@ class Elementor_Slider_Addon extends Widget_Base
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __("Read More", self::$slug),
                 'placeholder' => __('Value Attribute', self::$slug),
-			    'condition' => [
-					'show_read_more' => 'yes',
-				],
+                'condition' => [
+                    'show_read_more' => 'yes',
+                ],
             ]
         );
         $this->add_control(
@@ -279,18 +279,18 @@ class Elementor_Slider_Addon extends Widget_Base
                 'type' => \Elementor\Controls_Manager::ICONS,
                 'placeholder' => __('Value Attribute', self::$slug),
                 'default' => [
-					'value' => 'fas fa-arrow-right',
-					'library' => 'fa-solid',
-				],
-				'skin' => 'inline',
-				'label_block' => false,
-				'frontend_available' => true,
-				'condition' => [
-					'show_read_more' => 'yes',
-				],
+                    'value' => 'fas fa-arrow-right',
+                    'library' => 'fa-solid',
+                ],
+                'skin' => 'inline',
+                'label_block' => false,
+                'frontend_available' => true,
+                'condition' => [
+                    'show_read_more' => 'yes',
+                ],
             ]
         );
-		$this->end_controls_section();
+        $this->end_controls_section();
 
 
         $this->start_controls_section(
@@ -303,59 +303,59 @@ class Elementor_Slider_Addon extends Widget_Base
         $this->add_control(
             'show_navigation',
             [
-                'label' => __( 'Show', self::$slug ),
-				'type' => \Elementor\Controls_Manager::SWITCHER ,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label' => __('Show', self::$slug),
+                'type' => \Elementor\Controls_Manager::SWITCHER ,
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
             ]
         );
         $this->add_control(
-			'navigation_position',
-			[
-				'label' => __( 'Position', self::$slug ),
-				'type' => \Elementor\Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => __( 'Above', self::$slug ),
-						'icon' => 'fa fa-align-left',
-					],
-					'center' => [
-						'title' => __( 'Around', self::$slug ),
-						'icon' => 'fa fa-align-center',
-					],
-					'right' => [
-						'title' => __( 'Below', self::$slug ),
-						'icon' => 'fa fa-align-right',
-					],
-				],
+            'navigation_position',
+            [
+                'label' => __('Position', self::$slug),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => __('Above', self::$slug),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Around', self::$slug),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Below', self::$slug),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                ],
                 'condition' => [
                     'navigation_show' => 'yes'
                 ],
-				'default' => 'center',
-				'toggle' => true,
-			]
-		);
+                'default' => 'center',
+                'toggle' => true,
+            ]
+        );
         $this->add_control(
-			'navigation_alignment',
-			[
-				'label' => __( 'Alignment', self::$slug ),
-				'type' => \Elementor\Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => __( 'Left', self::$slug ),
-						'icon' => 'fa fa-align-left',
-					],
-					'center' => [
-						'title' => __( 'Center', self::$slug ),
-						'icon' => 'fa fa-align-center',
-					],
-					'right' => [
-						'title' => __( 'Right', self::$slug ),
-						'icon' => 'fa fa-align-right',
-					],
-				],
+            'navigation_alignment',
+            [
+                'label' => __('Alignment', self::$slug),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => __('Left', self::$slug),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', self::$slug),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Right', self::$slug),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                ],
                 'conditions' => [
                     'relation' => 'and',
                     'terms' => [
@@ -371,46 +371,46 @@ class Elementor_Slider_Addon extends Widget_Base
                         ]
                     ]
                 ],
-				'default' => 'center',
-				'toggle' => true,
-			]
-		);
+                'default' => 'center',
+                'toggle' => true,
+            ]
+        );
         $this->add_control(
-			'icon-prev',
-			[
-				'label' => __( 'Previous Icon', self::$slug ),
-				'type' => Controls_Manager::ICONS,
-				'default' => [
-					'value' => 'fas fa-arrow-left',
-					'library' => 'fa-solid',
-				],
+            'icon-prev',
+            [
+                'label' => __('Previous Icon', self::$slug),
+                'type' => Controls_Manager::ICONS,
+                'default' => [
+                    'value' => 'fas fa-arrow-left',
+                    'library' => 'fa-solid',
+                ],
                 'condition' => [
                     'navigation_show' => 'yes'
                 ],
-				'skin' => 'inline',
-				'label_block' => false,
-				'frontend_available' => true,
-			]
-		);
+                'skin' => 'inline',
+                'label_block' => false,
+                'frontend_available' => true,
+            ]
+        );
         $this->add_control(
-			'icon-next',
-			[
-				'label' => __( 'Next Icon', self::$slug ),
-				'type' => Controls_Manager::ICONS,
-				'default' => [
-					'value' => 'fas fa-arrow-right',
-					'library' => 'fa-solid',
-				],
+            'icon-next',
+            [
+                'label' => __('Next Icon', self::$slug),
+                'type' => Controls_Manager::ICONS,
+                'default' => [
+                    'value' => 'fas fa-arrow-right',
+                    'library' => 'fa-solid',
+                ],
                 'condition' => [
                     'navigation_show' => 'yes'
                 ],
-				'skin' => 'inline',
-				'label_block' => false,
-				'frontend_available' => true,
-			]
-		);
+                'skin' => 'inline',
+                'label_block' => false,
+                'frontend_available' => true,
+            ]
+        );
 
-		$this->end_controls_section();
+        $this->end_controls_section();
 
         //TODO: Add configuration from siema api
         $this->start_controls_section(
@@ -426,127 +426,129 @@ class Elementor_Slider_Addon extends Widget_Base
         //###################################
         // STYLING
         $this->start_controls_section(
-			'section_design_layout',
-			[
-				'label' => __( 'General', 'elementor-pro' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
-		);
+            'section_design_layout',
+            [
+                'label' => __('General', 'elementor-pro'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
         //Option to add distance between elements
         $this->add_control(
-			'column_gap',
-			[
-				'label' => __( 'Columns Gap', 'elementor-pro' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}}' => ' --grid-column-gap: {{SIZE}}{{UNIT}}',
-				],
-			]
-		);
+            'column_gap',
+            [
+                'label' => __('Columns Gap', 'elementor-pro'),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}}' => ' --grid-column-gap: {{SIZE}}{{UNIT}}',
+                ],
+            ]
+        );
         // Option to Show/Hide Overflow
         $this->add_control(
             'section_overflow',
             [
-                'label' => __( 'Section Overflow', self::$slug),
+                'label' => __('Section Overflow', self::$slug),
                 'type' => Controls_Manager::SWITCHER,
-                'label_on' => __( 'Show', self::$slug ),
-				'label_off' => __( 'Hide', self::$slug ),
-				'return_value' => 'yes',
-				'default' => 'yes',
+                'label_on' => __('Show', self::$slug),
+                'label_off' => __('Hide', self::$slug),
+                'return_value' => 'yes',
+                'default' => 'yes',
 
             ]
         );
-
     }
 
-    public function query_posts() {
+    public function query_posts()
+    {
+        $query_args = [
+            'posts_per_page' => $this->get_settings('posts_per_page'),
+        ];
 
-		$query_args = [
-			'posts_per_page' => $this->get_settings( 'posts_per_page' ),
-		];
+        /** @var Module_Query $elementor_query */
+        $elementor_query = Module_Query::instance();
+        $this->_query = $elementor_query->get_query($this, 'posts', $query_args, []);
+    }
+    public function get_query()
+    {
+        return $this->_query;
+    }
+    protected function get_posts_tags()
+    {
+        $taxonomy = $this->get_settings('taxonomy');
 
-		/** @var Module_Query $elementor_query */
-		$elementor_query = Module_Query::instance();
-		$this->_query = $elementor_query->get_query( $this, 'posts', $query_args, [] );
-	}
-	public function get_query() {
-		return $this->_query;
-	}
-    protected function get_posts_tags() {
-		$taxonomy = $this->get_settings( 'taxonomy' );
+        foreach ($this->_query->posts as $post) {
+            if (! $taxonomy) {
+                $post->tags = [];
 
-		foreach ( $this->_query->posts as $post ) {
-			if ( ! $taxonomy ) {
-				$post->tags = [];
+                continue;
+            }
 
-				continue;
-			}
+            $tags = wp_get_post_terms($post->ID, $taxonomy);
 
-			$tags = wp_get_post_terms( $post->ID, $taxonomy );
+            $tags_slugs = [];
 
-			$tags_slugs = [];
+            foreach ($tags as $tag) {
+                $tags_slugs[ $tag->term_id ] = $tag;
+            }
 
-			foreach ( $tags as $tag ) {
-				$tags_slugs[ $tag->term_id ] = $tag;
-			}
+            $post->tags = $tags_slugs;
+        }
+    }
 
-			$post->tags = $tags_slugs;
-		}
-	}
-
-    protected function render_loop_header() {
-		if ( $this->get_settings( 'show_filter_bar' ) ) {
-			$this->render_filter_menu();
-		}
-		?>
-		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" hideleft="<?php echo $this->get_settings( 'hide-left' ) ?>" slidesdesktop="<?php echo $this->get_settings( 'number-slides' ) ?>" slidestablet="<?php echo $this->get_settings( 'number-slides_tablet' ) ?>" slidesmobile="<?php echo $this->get_settings( 'number-slides_mobile' ) ?>" style="overflow:<?php echo $this->get_settings( 'section_overflow' ) ? 'auto' : 'hidden'; ?>">
+    protected function render_loop_header()
+    {
+        if ($this->get_settings('show_filter_bar')) {
+            $this->render_filter_menu();
+        } ?>
+		<div class="elementor-slider-addon elementor-grid elementor-posts-container siema" hideleft="<?php echo $this->get_settings('hide-left') ?>" slidesdesktop="<?php echo $this->get_settings('number-slides') ?>" slidestablet="<?php echo $this->get_settings('number-slides_tablet') ?>" slidesmobile="<?php echo $this->get_settings('number-slides_mobile') ?>" style="overflow:<?php echo $this->get_settings('section_overflow') ? 'auto' : 'hidden'; ?>">
         <?php
-	}
+    }
 
-	protected function render_loop_footer() {
-		?>
+    protected function render_loop_footer()
+    {
+        ?>
 		</div>
 		<?php
-	}
-    protected function render_post_header() {
-		global $post;
+    }
+    protected function render_post_header()
+    {
+        global $post;
 
-		$tags_classes = array_map( function( $tag ) {
-			return 'elementor-filter-' . $tag->term_id;
-		}, $post->tags );
+        $tags_classes = array_map(function ($tag) {
+            return 'elementor-filter-' . $tag->term_id;
+        }, $post->tags);
 
-		$classes = [
-			'elementor-slider-addon-item',
-			'elementor-post',
-			implode( ' ', $tags_classes ),
-		];
-
-		?>
-		<article <?php post_class( $classes ); ?>>
+        $classes = [
+            'elementor-slider-addon-item',
+            'elementor-post',
+            implode(' ', $tags_classes),
+        ]; ?>
+		<article <?php post_class($classes); ?>>
 		<?php
-	}
+    }
 
-	protected function render_post_footer() {
-		?>
+    protected function render_post_footer()
+    {
+        ?>
 		</article>
 		<?php
-	}
+    }
 
-    protected function render_thumbnail() {
-		$settings = $this->get_settings();
+    protected function render_thumbnail()
+    {
+        $settings = $this->get_settings();
 
-		$settings['thumbnail_size'] = [
-			'id' => get_post_thumbnail_id(),
-		];
+        $settings['thumbnail_size'] = [
+            'id' => get_post_thumbnail_id(),
+        ];
 
-		$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size' );
-		?>
+        $thumbnail_html = Group_Control_Image_Size::get_attachment_image_html($settings, 'thumbnail_size'); ?>
         
         <a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
             <div class="elementor-slider-addon-item__img elementor-post__thumbnail">
@@ -555,93 +557,96 @@ class Elementor_Slider_Addon extends Widget_Base
 		</a>
 
 		<?php
-	}
+    }
 
-    protected function render_text_header() {
-		?>
+    protected function render_text_header()
+    {
+        ?>
 		<div class="elementor-slider-addon-item__text">
 		<?php
-	}
+    }
 
-	protected function render_text_footer() {
-		?>
+    protected function render_text_footer()
+    {
+        ?>
 		</div>
 		<?php
-	}
-	protected function render_title() {
-		if ( ! $this->get_settings( 'show_title' ) ) {
-			return;
-		}
+    }
+    protected function render_title()
+    {
+        if (! $this->get_settings('show_title')) {
+            return;
+        }
 
-		$tag = Utils::validate_html_tag( $this->get_settings( 'title_tag' ) );
-		?>
+        $tag = Utils::validate_html_tag($this->get_settings('title_tag')); ?>
 		<<?php echo $tag; ?> class="elementor-slider-addon-item__title">
 		<?php the_title(); ?>
 		</<?php echo $tag; ?>>
 		<?php
-	}
-    protected function render_categories() {
-        if ( ! $this->get_settings( 'show_categories' ) ) {
-			return;
-		}
+    }
+    protected function render_categories()
+    {
+        if (! $this->get_settings('show_categories')) {
+            return;
+        }
         $categories = get_the_category();
-        if ( ! empty( $categories ) ) {
+        if (! empty($categories)) {
             $separator = ' ';
             $output = '<div class="elementor-slider-addon-item__categories">';
-            foreach( $categories as $category ) {
-                
-                $output .= '<a class="elementor-slider-addon-item__category" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+            foreach ($categories as $category) {
+                $output .= '<a class="elementor-slider-addon-item__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
             }
             $output .= '</div>';
-            echo trim( $output, $separator );
+            echo trim($output, $separator);
         }
     }
-    protected function render_excerpt() {
-        if ( ! $this->get_settings( 'show_excerpt' ) ) {
-			return;
-		}
-        ?>
+    protected function render_excerpt()
+    {
+        if (! $this->get_settings('show_excerpt')) {
+            return;
+        } ?>
             <div class="elementor-slider-addon-item__excerpt">
                 <?php the_excerpt(); ?>
             </div>
 		<?php
-
     }
 
-	protected function render_read_more() {
-		if ( ! $this->get_settings( 'show_read_more' ) ) {
-			return;
-		}
-		?>
+    protected function render_read_more()
+    {
+        if (! $this->get_settings('show_read_more')) {
+            return;
+        } ?>
 			<a class="elementor-post__read-more" href="<?php echo $this->current_permalink; ?>">
-				<?php echo $this->get_settings( 'read_more_text' ); 
-                //TODO: This Icon is not shown.. Check why
-		        Icons_Manager::render_icon( $settings['icon'], [ 'aria-hidden' => 'true' ] );
-                ?>
+				<?php echo $this->get_settings('read_more_text');
+        //TODO: This Icon is not shown.. Check why
+        Icons_Manager::render_icon($settings['icon'], [ 'aria-hidden' => 'true' ]); ?>
             </a>
 		<?php
-	}
+    }
 
-    protected function render_post_content(){
-		$this->render_text_header();
+    protected function render_post_content()
+    {
+        $this->render_text_header();
         //TODO: Anordnung der Elemente als control anlegen und hier anpassen (oder per grid?)
-		$this->render_title();
+        $this->render_title();
         $this->render_categories();
         $this->render_excerpt();
         $this->render_read_more();
-		$this->render_text_footer();
+        $this->render_text_footer();
     }
 
-    protected function render_post() {
-		$this->render_post_header();
-		$this->render_thumbnail();
+    protected function render_post()
+    {
+        $this->render_post_header();
+        $this->render_thumbnail();
         $this->render_post_content();
-		$this->render_post_footer();
-	}
+        $this->render_post_footer();
+    }
 
-    protected function render_navigation_elements() {
+    protected function render_navigation_elements()
+    {
         //add the navigation elements if wanted
-        if( ! $this->get_settings('show_navigation') ) {
+        if (! $this->get_settings('show_navigation')) {
             return;
         }
         //TODO: Add navigation items to dom
@@ -649,7 +654,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render()
     {
-        if ($this->get_settings( 'slide-content' ) == 'query'){
+        if ($this->get_settings('slide-content') == 'query') {
             //render query
             $this->query_posts();
 
@@ -657,10 +662,10 @@ class Elementor_Slider_Addon extends Widget_Base
 
             $this->get_posts_tags();
             $this->render_loop_header();
-            
+
             $this->render_navigation_elements();
 
-            while ( $wp_query->have_posts() ) {
+            while ($wp_query->have_posts()) {
                 $wp_query->the_post();
 
                 $this->render_post();
@@ -669,12 +674,10 @@ class Elementor_Slider_Addon extends Widget_Base
             $this->render_loop_footer();
 
             wp_reset_postdata();
-
-        }else if($this->get_settings('slide-content') == 'static'){
+        } elseif ($this->get_settings('slide-content') == 'static') {
             //render static content
             //$items = $this->get_settings('lists')
         }
-		
     }
 
 
@@ -683,7 +686,7 @@ class Elementor_Slider_Addon extends Widget_Base
         parent::__construct($data, $args);
         wp_register_script('siema_slider_js', plugins_url('../assets/js/createSiema.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
         wp_register_script('siema_slider_framework_js', plugins_url('../assets/js/siemaFramework.js', __FILE__), [ 'elementor-frontend' ], '1.0.1', true);
-    
+
         wp_register_style('elementor_slider_addon_css', plugins_url('../assets/css/sliderAddon.css', __FILE__));
     }
 
