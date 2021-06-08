@@ -9,3 +9,13 @@
 .siema a > * {
     pointer-events: none !important;
 }
+
+.elementor-slider-addon--align-left .elementor-slider-addon-item-content {
+    text-align: left;
+}
+.elementor-slider-addon--align-right .elementor-slider-addon-item-content {
+    text-align: right;
+}
+.elementor-slider-addon--align-center .elementor-slider-addon-item-content {
+    text-align: center;
+}

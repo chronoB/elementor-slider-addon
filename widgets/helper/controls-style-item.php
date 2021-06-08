@@ -60,6 +60,28 @@ $this->start_controls_section(
             ],
         ]
     );
+    $this->add_control(
+        'item-alignment',
+        [
+            'label' => __( 'Alignment', 'elementor-pro' ),
+            'type' => Controls_Manager::CHOOSE,
+            'options' => [
+                'left' => [
+                    'title' => __( 'Left', 'elementor-pro' ),
+                    'icon' => 'eicon-text-align-left',
+                ],
+                'center' => [
+                    'title' => __( 'Center', 'elementor-pro' ),
+                    'icon' => 'eicon-text-align-center',
+                ],
+                'right' => [
+                    'title' => __( 'Right', 'elementor-pro' ),
+                    'icon' => 'eicon-text-align-right',
+                ],
+            ],
+            'prefix_class' => 'elementor-slider-addon--align-',
+        ]
+    );
     
     $this->start_controls_tabs( 'bg_effects_tabs' );
 
