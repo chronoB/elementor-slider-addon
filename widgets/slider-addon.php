@@ -197,17 +197,11 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_post_thumbnail()
     {
-        $settings = $this->get_settings();
-
-        $settings['thumbnail_size'] = [
-            'id' => get_post_thumbnail_id(),
-        ];
-
-        $thumbnail_html = Group_Control_Image_Size::get_attachment_image_html($settings, 'thumbnail_size'); ?>
+        ?>
 
         <a class="elementor-slider-addon-item-thumbnail" href="<?php echo get_permalink(); ?>">
             <div class="elementor-slider-addon-item__thumbnail__img">
-                <?php echo $thumbnail_html; ?>
+                <?php echo wp_get_attachment_image(get_post_thumbnail_id(), $this->get_settings('query-image_size')); ?>
             </div>
         </a>
 
