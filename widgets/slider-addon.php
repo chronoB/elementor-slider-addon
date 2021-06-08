@@ -200,7 +200,7 @@ class Elementor_Slider_Addon extends Widget_Base
         ?>
 
         <a class="elementor-slider-addon-item-thumbnail" href="<?php echo get_permalink(); ?>">
-            <div class="elementor-slider-addon-item__thumbnail__img">
+            <div class="elementor-slider-addon-item-thumbnail__img elementor-post__thumbnail">
                 <?php echo wp_get_attachment_image(get_post_thumbnail_id(), $this->get_settings('query-image_size')); ?>
             </div>
         </a>
@@ -231,10 +231,24 @@ class Elementor_Slider_Addon extends Widget_Base
         if (!$this->get_settings('show_title')) {
             return;
         }
+        
 
         $tag = Utils::validate_html_tag($this->get_settings('title_tag')); ?>
         <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
-        <?php the_title(); ?>
+        <?php
+        if($this->get_settings('slide-content')=="query" && $this->get_settings('query_title_as_link')){
+            ?>
+            <a href="<?php echo $item['repeater_read_more_url']['url'] ?>">
+                <?php
+                the_title();
+                ?>
+            </a>
+            <?php
+        }
+        else{
+            the_title();
+        }
+        ?>
         </<?php echo $tag; ?>>
         <?php
     }
@@ -246,11 +260,12 @@ class Elementor_Slider_Addon extends Widget_Base
         }
         $categories = get_the_category();
         if (!empty($categories)) {
-            $separator = ' ';
+            $separator = $this->get_settings('category_delimiter');
             $output = '<div class="elementor-slider-addon-item-content__categories">';
             foreach ($categories as $category) {
                 $output .= '<a class="elementor-slider-addon-item-content__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
             }
+            $output=rtrim($output, $this->get_settings('category_delimiter'));
             $output .= '</div>';
             echo trim($output, $separator);
         }
@@ -318,9 +333,8 @@ class Elementor_Slider_Addon extends Widget_Base
     protected function render_static_thumbnail($item)
     {
         ?>
-
-        <a class="elementor-slider-addon-item-thumbnail" href="<?php echo $item['repeater_read_more_url']; ?>">
-            <div class="elementor-slider-addon-item-thumbnail__img">
+        <a class="elementor-slider-addon-item-thumbnail" href="<?php echo $item['repeater_read_more_url']['url']; ?>">
+            <div class="elementor-slider-addon-item-thumbnail__img elementor-post__thumbnail">
                 <?php echo wp_get_attachment_image($item['repeater_thumbnail']['id'], $this->get_settings('static-image_size')); ?>
             </div>
         </a>
@@ -344,7 +358,21 @@ class Elementor_Slider_Addon extends Widget_Base
     {
         $tag = Utils::validate_html_tag($item['repeater_headline_tag']); ?>
         <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
-        <?php echo $item['repeater_headline'] ?>
+        <?php 
+        if($this->get_settings('static_title_as_link')){
+            ?>
+            <a href="<?php echo $item['repeater_read_more_url']['url'] ?>">
+            <?php
+            echo $item['repeater_headline'] ;
+            ?>
+            </a>
+            <?php
+        }
+        else{
+            echo $item['repeater_headline'] ;
+        }
+        
+        ?>
         </<?php echo $tag; ?>>
         <?php
     }
@@ -365,7 +393,7 @@ class Elementor_Slider_Addon extends Widget_Base
             return;
         }
         ?>
-        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']; ?>">
+        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']['url']; ?>">
             <?php
             echo $item['repeater_read_more_text'];
             Icons_Manager::render_icon($item['repeater_read_more_icon'], ['aria-hidden' => 'true']);

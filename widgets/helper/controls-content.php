@@ -163,6 +163,17 @@ $this->add_control(
     ]
 );
 
+$this->add_control(
+    'static_title_as_link',
+    [
+        'label' => __('Use Title as Link', self::$slug),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => __('Yes', self::$slug),
+        'label_off' => __('No', self::$slug),
+        'return_value' => 'yes',
+        'default' => 'yes',
+    ]
+);
 
 $this->end_controls_section();
 
@@ -235,6 +246,17 @@ $this->add_control(
     ]
 );
 $this->add_control(
+    'query_title_as_link',
+    [
+        'label' => __('Use Title as Link', self::$slug),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => __('Yes', self::$slug),
+        'label_off' => __('No', self::$slug),
+        'return_value' => 'yes',
+        'default' => 'yes',
+    ]
+);
+$this->add_control(
     'show_categories',
     [
         'label' => __('Show Categories', self::$slug),
@@ -245,7 +267,18 @@ $this->add_control(
         'default' => 'yes',
     ]
 );
-
+$this->add_control(
+    'category_delimiter',
+    [
+        'label' => __('Category delimiter', self::$slug),
+        'type' => Controls_Manager::TEXT,
+        'default' => __("-", self::$slug),
+        'placeholder' => __('Value Attribute', self::$slug),
+        'condition' => [
+            'show_categories' => 'yes',
+        ],
+    ]
+);
 $this->add_control(
     'show_excerpt',
     [
