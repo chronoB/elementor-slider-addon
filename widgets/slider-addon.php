@@ -130,9 +130,8 @@ class Elementor_Slider_Addon extends Widget_Base
     public function query_posts()
     {
         $query_args = [
-            'posts_per_page' => $this->get_settings_for_display('posts_per_page'),
+            'posts_per_page' => $this->get_settings_for_display('number_posts'),
         ];
-
         /** @var Module_Query $elementor_query */
         $elementor_query = Module_Query::instance();
         $this->_query = $elementor_query->get_query($this, 'posts', $query_args, []);

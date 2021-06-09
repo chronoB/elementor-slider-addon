@@ -21,6 +21,14 @@ $this->add_control(
         ],
     ],
 );
+$this->add_control(
+    'number_posts',
+    [
+        'label' => __( 'Number of Posts', self::$slug ),
+        'type' => Controls_Manager::NUMBER,
+        'default' => 6,
+    ]
+);
 $this->add_responsive_control(
     'number-slides',
     [
