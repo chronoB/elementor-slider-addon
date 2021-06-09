@@ -50,6 +50,7 @@ $this->add_control(
         'label' => __( 'Reload Slider', self::$slug ),
         'type' => \Elementor\Controls_Manager::BUTTON,
         'button_type' => 'default',
+        'description' => 'Reload the Slider in the backend if you change the number of slides',
         'text' => __( 'Reload', self::$slug ),
         'event' => 'elementor-slider-addon:slider:reload',
     ]
