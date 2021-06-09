@@ -68,6 +68,7 @@ $this->add_control(
         'prefix_class' => 'elementor-slider-addon-arrow--align-',
     ]
 );
+
 $this->add_control(
     'nav_bg_width',
     [
@@ -206,6 +207,20 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
             'label' => __( 'Normal', 'elementor-pro' ),
         ]
     );
+        $this->add_control(
+            'nav_icon_color',
+            [
+                'label' => __( 'Icon Color', self::$slug ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .elementor-slider-addon-arrow' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
 
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
@@ -244,7 +259,20 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
             'label' => __( 'Hover', 'elementor-pro' ),
         ]
     );
-
+        $this->add_control(
+            'nav_icon_color_hover',
+            [
+                'label' => __( 'Icon Color', self::$slug ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .elementor-slider-addon-arrow:hover' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
