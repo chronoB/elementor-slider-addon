@@ -17,6 +17,7 @@
     padding-right: calc( var( --item-gap ) / 2 );
     padding-left: calc( var( --item-gap ) / 2 );
 }
+
 .elementor-slider-addon--align-left .elementor-slider-addon-item-content {
     text-align: left;
 }
@@ -25,4 +26,33 @@
 }
 .elementor-slider-addon--align-center .elementor-slider-addon-item-content {
     text-align: center;
+}
+
+.elementor-slider-addon-arrow--align-left > .elementor-widget-container{
+    text-align: left;
+}
+.elementor-slider-addon-arrow--align-center > .elementor-widget-container{
+    text-align: center;
+}
+.elementor-slider-addon-arrow--align-right > .elementor-widget-container{
+    text-align: right;
+}
+
+.elementor-slider-addon-arrow--position-around .elementor-slider-addon-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+.elementor-slider-addon-arrow--position-around .elementor-slider-addon-arrow-left{
+    left: 0;
+}
+.elementor-slider-addon-arrow--position-around .elementor-slider-addon-arrow-right{
+    right: 0;
+}
+
+.elementor-slider-addon-arrow {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }

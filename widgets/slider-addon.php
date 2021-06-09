@@ -66,8 +66,10 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render()
     {
-        $this->render_navigation_elements();
-        if ($this->get_settings('slide-content') == 'query') {
+        if($this->get_settings_for_display('navigation_position') == "above" || $this->get_settings_for_display('navigation_position') == "around"){
+            $this->render_navigation_elements();
+        }
+        if ($this->get_settings_for_display('slide-content') == 'query') {
             //render query
             $this->query_posts();
 
@@ -87,11 +89,11 @@ class Elementor_Slider_Addon extends Widget_Base
             $this->render_loop_footer();
 
             wp_reset_postdata();
-        } elseif ($this->get_settings('slide-content') == 'static') {
+        } elseif ($this->get_settings_for_display('slide-content') == 'static') {
             //render static content
             $this->render_loop_header();
 
-            $items = $this->get_settings('repeater');
+            $items = $this->get_settings_for_display('repeater');
             if ($items) {
                 foreach ($items as $item) {
                     $this->render_static_item($item);
@@ -100,23 +102,26 @@ class Elementor_Slider_Addon extends Widget_Base
 
             $this->render_loop_footer();
         }
+        if($this->get_settings_for_display('navigation_position') == "below"){
+            $this->render_navigation_elements();
+        }
     }
 
     protected function render_navigation_elements()
     {
         //add the navigation elements if wanted
-        if (!$this->get_settings('show_navigation')) {
+        if (!$this->get_settings_for_display('show_navigation')) {
             return;
         }
         ?>
-        <div class="arrow-right prev">
+        <div class="elementor-slider-addon-arrow elementor-slider-addon-arrow-left prev">
             <?php
-            Icons_Manager::render_icon($this->get_settings('icon-prev'), ['aria-hidden' => 'true']);
+            Icons_Manager::render_icon($this->get_settings_for_display('icon-prev'), ['aria-hidden' => 'true']);
             ?>
         </div>
-        <div class="arrow-left next">
+        <div class="elementor-slider-addon-arrow elementor-slider-addon-arrow-right next">
             <?php
-            Icons_Manager::render_icon($this->get_settings('icon-next'), ['aria-hidden' => 'true']);
+            Icons_Manager::render_icon($this->get_settings_for_display('icon-next'), ['aria-hidden' => 'true']);
             ?>
         </div>
         <?php
@@ -125,7 +130,7 @@ class Elementor_Slider_Addon extends Widget_Base
     public function query_posts()
     {
         $query_args = [
-            'posts_per_page' => $this->get_settings('posts_per_page'),
+            'posts_per_page' => $this->get_settings_for_display('posts_per_page'),
         ];
 
         /** @var Module_Query $elementor_query */
@@ -140,7 +145,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function get_posts_tags()
     {
-        $taxonomy = $this->get_settings('taxonomy');
+        $taxonomy = $this->get_settings_for_display('taxonomy');
 
         foreach ($this->_query->posts as $post) {
             if (!$taxonomy) {
@@ -163,10 +168,10 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_loop_header()
     {
-        if ($this->get_settings('show_filter_bar')) {
+        if ($this->get_settings_for_display('show_filter_bar')) {
             $this->render_filter_menu();
         } ?>
-        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings('section_overflow') ? '' : 'hidden'; ?>">
+        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings_for_display('section_overflow') ? '' : 'hidden'; ?>">
         <?php
     }
 
@@ -201,7 +206,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
         <a class="elementor-slider-addon-item-thumbnail" href="<?php echo get_permalink(); ?>">
             <div class="elementor-slider-addon-item-thumbnail__img elementor-post__thumbnail">
-                <?php echo wp_get_attachment_image(get_post_thumbnail_id(), $this->get_settings('query-image_size')); ?>
+                <?php echo wp_get_attachment_image(get_post_thumbnail_id(), $this->get_settings_for_display('query-image_size')); ?>
             </div>
         </a>
 
@@ -228,15 +233,15 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_post_title()
     {
-        if (!$this->get_settings('show_title')) {
+        if (!$this->get_settings_for_display('show_title')) {
             return;
         }
         
 
-        $tag = Utils::validate_html_tag($this->get_settings('title_tag')); ?>
+        $tag = Utils::validate_html_tag($this->get_settings_for_display('title_tag')); ?>
         <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
         <?php
-        if($this->get_settings('slide-content')=="query" && $this->get_settings('query_title_as_link')){
+        if($this->get_settings_for_display('slide-content')=="query" && $this->get_settings_for_display('query_title_as_link')){
             ?>
             <a href="<?php echo $item['repeater_read_more_url']['url'] ?>">
                 <?php
@@ -255,17 +260,17 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_post_categories()
     {
-        if (!$this->get_settings('show_categories')) {
+        if (!$this->get_settings_for_display('show_categories')) {
             return;
         }
         $categories = get_the_category();
         if (!empty($categories)) {
-            $separator = $this->get_settings('category_delimiter');
+            $separator = $this->get_settings_for_display('category_delimiter');
             $output = '<div class="elementor-slider-addon-item-content__categories">';
             foreach ($categories as $category) {
                 $output .= '<a class="elementor-slider-addon-item-content__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
             }
-            $output=rtrim($output, $this->get_settings('category_delimiter'));
+            $output=rtrim($output, $this->get_settings_for_display('category_delimiter'));
             $output .= '</div>';
             echo trim($output, $separator);
         }
@@ -273,7 +278,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_post_excerpt()
     {
-        if (!$this->get_settings('show_excerpt')) {
+        if (!$this->get_settings_for_display('show_excerpt')) {
             return;
         } ?>
         <div class="elementor-slider-addon-item-content__excerpt">
@@ -284,12 +289,12 @@ class Elementor_Slider_Addon extends Widget_Base
 
     protected function render_post_read_more()
     {
-        if (!$this->get_settings('show_read_more')) {
+        if (!$this->get_settings_for_display('show_read_more')) {
             return;
         } ?>
         <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $this->current_permalink; ?>">
-            <?php echo $this->get_settings('read_more_text');
-            Icons_Manager::render_icon($this->get_settings('read_more_symbol'), ['aria-hidden' => 'true']); ?>
+            <?php echo $this->get_settings_for_display('read_more_text');
+            Icons_Manager::render_icon($this->get_settings_for_display('read_more_symbol'), ['aria-hidden' => 'true']); ?>
         </a>
         <?php
     }
@@ -335,7 +340,7 @@ class Elementor_Slider_Addon extends Widget_Base
         ?>
         <a class="elementor-slider-addon-item-thumbnail" href="<?php echo $item['repeater_read_more_url']['url']; ?>">
             <div class="elementor-slider-addon-item-thumbnail__img elementor-post__thumbnail">
-                <?php echo wp_get_attachment_image($item['repeater_thumbnail']['id'], $this->get_settings('static-image_size')); ?>
+                <?php echo wp_get_attachment_image($item['repeater_thumbnail']['id'], $this->get_settings_for_display('static-image_size')); ?>
             </div>
         </a>
 
@@ -359,7 +364,7 @@ class Elementor_Slider_Addon extends Widget_Base
         $tag = Utils::validate_html_tag($item['repeater_headline_tag']); ?>
         <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
         <?php 
-        if($this->get_settings('static_title_as_link')){
+        if($this->get_settings_for_display('static_title_as_link')){
             ?>
             <a href="<?php echo $item['repeater_read_more_url']['url'] ?>">
             <?php

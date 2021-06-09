@@ -22,61 +22,6 @@ $this->add_control(
     ]
 );
 $this->add_control(
-    'navigation_position',
-    [
-        'label' => __('Position', self::$slug),
-        'type' => Controls_Manager::SELECT,
-        'options' => [
-            'above' => __('Above', self::$slug),
-            'around' => __('Around', self::$slug),
-            'Below' => __('Below', self::$slug),
-        ],
-        'condition' => [
-            'show_navigation' => 'yes'
-        ],
-        'default' => 'around',
-        'toggle' => true,
-    ]
-);
-$this->add_control(
-    'navigation_alignment',
-    [
-        'label' => __('Alignment', self::$slug),
-        'type' => Controls_Manager::CHOOSE,
-        'options' => [
-            'left' => [
-                'title' => __('Left', self::$slug),
-                'icon' => 'fa fa-align-left',
-            ],
-            'center' => [
-                'title' => __('Center', self::$slug),
-                'icon' => 'fa fa-align-center',
-            ],
-            'right' => [
-                'title' => __('Right', self::$slug),
-                'icon' => 'fa fa-align-right',
-            ],
-        ],
-        'conditions' => [
-            'relation' => 'and',
-            'terms' => [
-                [
-                    'name' => 'show_navigation',
-                    'operator' => '==',
-                    'value' => 'yes'
-                ],
-                [
-                    'name' => 'navigation_position',
-                    'operator' => '!=',
-                    'value' => 'around'
-                ]
-            ]
-        ],
-        'default' => 'center',
-        'toggle' => true,
-    ]
-);
-$this->add_control(
     'icon-prev',
     [
         'label' => __('Previous Icon', self::$slug),
