@@ -1,5 +1,7 @@
 .siema {
     transition: opacity .2s ease;
+    margin-left: calc( var( --item-gap ) / -2 );
+    margin-right: calc( var( --item-gap ) / -2 );
 }
 .siema .gone {
     opacity:0;
@@ -9,7 +11,12 @@
 .siema a > * {
     pointer-events: none !important;
 }
-
+.siema > div > div article.elementor-post {
+    width:100%;
+    margin-top: 0;
+    padding-right: calc( var( --item-gap ) / 2 );
+    padding-left: calc( var( --item-gap ) / 2 );
+}
 .elementor-slider-addon--align-left .elementor-slider-addon-item-content {
     text-align: left;
 }

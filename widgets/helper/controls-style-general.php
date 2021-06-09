@@ -22,7 +22,7 @@ $this->add_control(
             ],
         ],
         'selectors' => [
-            '{{WRAPPER}} ' => ' --grid-column-gap: {{SIZE}}{{UNIT}}',
+            '{{WRAPPER}}' => '--item-gap: {{SIZE}}{{UNIT}}',
         ],
     ]
 );

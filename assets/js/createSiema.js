@@ -19,12 +19,7 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
     
         siema.style.display = "block"; // Override elementor display fix to block
 
-        var arr = siema.querySelectorAll(".siema > *");
-        for (let i=0; i< arr.length; i++) {
-            arr[i].style.width="100%"; // ovverride element with in column
-            arr[i].style.marginTop="0"; // fix elementor margintop post stuff
-            arr[i].style.paddingRight="20px"; // Space between Slides
-        }
+        
 
         var hideLeft =  this.getElementSettings( 'hide-left' )
         function changeSlide() {
