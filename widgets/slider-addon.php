@@ -292,8 +292,8 @@ class Elementor_Slider_Addon extends Widget_Base
             return;
         } ?>
         <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $this->current_permalink; ?>">
-            <?php echo $this->get_settings_for_display('read_more_text');
-            Icons_Manager::render_icon($this->get_settings_for_display('read_more_symbol'), ['aria-hidden' => 'true']); ?>
+            <span><?php echo $this->get_settings_for_display('read_more_text');?></span>
+            <?php Icons_Manager::render_icon($this->get_settings_for_display('read_more_symbol'), ['aria-hidden' => 'true']); ?>
         </a>
         <?php
     }
@@ -398,9 +398,8 @@ class Elementor_Slider_Addon extends Widget_Base
         }
         ?>
         <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']['url']; ?>">
-            <?php
-            echo $item['repeater_read_more_text'];
-            Icons_Manager::render_icon($item['repeater_read_more_icon'], ['aria-hidden' => 'true']);
+            <span><?php echo $item['repeater_read_more_text'];?></span>
+            <?php Icons_Manager::render_icon($item['repeater_read_more_icon'], ['aria-hidden' => 'true']);
             ?>
         </a>
         <?php

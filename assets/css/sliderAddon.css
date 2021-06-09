@@ -61,3 +61,8 @@
     display:flex;
     justify-content: center;
 }
+
+.elementor-slider-addon-item-content__read-more{
+    display:flex;
+    align-items: center;
+}
