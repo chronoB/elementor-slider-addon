@@ -151,17 +151,25 @@ $this->add_control(
     [
         'label' => __( 'Icon Height Offset', self::$slug ),
         'type' => Controls_Manager::SLIDER,
-        'size_units' => [ 'px' ],
+        'size_units' => [ 'px', '%' ],
         'range' => [
             'px' => [
                 'min' => -100,
                 'max' => 100,
                 'step' => 1,
-            ]
+            ],
+            '%' => [
+                'min' => -50,
+                'max' => 50,
+            ],
         ],
         'selectors' => [
-            '{{WRAPPER}} .elementor-slider-addon-arrow-left' => 'margin-top: {{SIZE}}{{UNIT}};',
-            '{{WRAPPER}} .elementor-slider-addon-arrow-right' => 'margin-top: {{SIZE}}{{UNIT}};',
+            '{{WRAPPER}} .elementor-slider-addon-arrow-left' => 'top: calc( 50% - {{SIZE}}{{UNIT}});',
+            '{{WRAPPER}} .elementor-slider-addon-arrow-right' => 'top: calc( 50% - {{SIZE}}{{UNIT}});',
+        ],
+        'default' => [
+            'unit' => 'px',
+            'size' => 0,
         ],
         'conditions' => [
             'relation' => 'and',
