@@ -43,4 +43,15 @@ $this->add_responsive_control(
         'frontend_available' => true,
     ]
 );
+
+$this->add_control(
+    'reload_slider',
+    [
+        'label' => __( 'Reload Slider', self::$slug ),
+        'type' => \Elementor\Controls_Manager::BUTTON,
+        'button_type' => 'default',
+        'text' => __( 'Reload', self::$slug ),
+        'event' => 'elementor-slider-addon:slider:reload',
+    ]
+);
 $this->end_controls_section();

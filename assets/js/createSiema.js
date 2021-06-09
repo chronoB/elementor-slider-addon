@@ -46,6 +46,21 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 overflow: false,
                 selector: siema,
             })
+            let that = this;
+            elementor.channels.editor.on('elementor-slider-addon:slider:reload', (el)=>resetSiema(el));
+            function resetSiema(el){
+                siemaSlider[siema].destroy(true);
+                siemaSlider[siema]= new Siema({
+                    perPage: {
+                        0: (that.getElementSettings( 'number-slides_mobile' ) != undefined) ? that.getElementSettings( 'number-slides_mobile' ) : "1", 
+                        [mobileBreakpoint] : (that.getElementSettings( 'number-slides_tablet' ) != undefined) ? that.getElementSettings( 'number-slides_tablet' ) : "2",
+                        [tabletBreakpoint] : (that.getElementSettings( 'number-slides' ) != undefined) ? that.getElementSettings( 'number-slides' ) : "3"
+                    },
+                    onChange: changeSlide,
+                    overflow: false,
+                    selector: siema,
+                })
+            }
         }
 
 
@@ -68,11 +83,13 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
 }
 
 jQuery( window ).on( 'elementor/frontend/init', () => {
-   const addHandler = ( $element ) => {
-       elementorFrontend.elementsHandler.addHandler( SiemaHandler, {
-           $element,
-       } );
-   };
+    const addHandler = ( $element ) => {
+        elementorFrontend.elementsHandler.addHandler( SiemaHandler, {
+            $element,
+        } );
+    };
 
-   elementorFrontend.hooks.addAction( 'frontend/element_ready/elementor-slider-addon.default', addHandler );
+    elementorFrontend.hooks.addAction( 'frontend/element_ready/elementor-slider-addon.default', addHandler );
+
+
 } );
