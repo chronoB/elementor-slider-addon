@@ -33,38 +33,54 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 })
             }
         }
-
-        
+        /*
+        new Siema({
+            selector: '.siema',
+            duration: 200,
+            easing: 'ease-out',
+            perPage: 1,
+            startIndex: 0,
+            draggable: true,
+            multipleDrag: true,
+            threshold: 20,
+            loop: false,
+            rtl: false,
+            onInit: () => {},
+            onChange: () => {},
+          });
+        */
         if(siemaSlider[siema] == undefined){
-            siemaSlider[siema] = new Siema({
-                perPage: {
-                    0: (this.getElementSettings( 'number-slides_mobile' ) != undefined) ? this.getElementSettings( 'number-slides_mobile' ) : "1", 
-                    [mobileBreakpoint] : (this.getElementSettings( 'number-slides_tablet' ) != undefined) ? this.getElementSettings( 'number-slides_tablet' ) : "2",
-                    [tabletBreakpoint] : (this.getElementSettings( 'number-slides' ) != undefined) ? this.getElementSettings( 'number-slides' ) : "3"
-                },
-                onChange: changeSlide,
-                overflow: false,
-                selector: siema,
-            })
+            siemaSlider[siema] = getSiema(this);
             if (typeof elementor !== 'undefined') {
                 let that = this;
                 elementor.channels.editor.on('elementor-slider-addon:slider:reload', (el)=>resetSiema(el));
                 function resetSiema(el){
                     siemaSlider[siema].destroy(true);
-                    siemaSlider[siema]= new Siema({
-                        perPage: {
-                            0: (that.getElementSettings( 'number-slides_mobile' ) != undefined) ? that.getElementSettings( 'number-slides_mobile' ) : "1", 
-                            [mobileBreakpoint] : (that.getElementSettings( 'number-slides_tablet' ) != undefined) ? that.getElementSettings( 'number-slides_tablet' ) : "2",
-                            [tabletBreakpoint] : (that.getElementSettings( 'number-slides' ) != undefined) ? that.getElementSettings( 'number-slides' ) : "3"
-                        },
-                        onChange: changeSlide,
-                        overflow: false,
-                        selector: siema,
-                    })
+                    siemaSlider[siema] = getSiema();
                 }
             }
         }
 
+        function getSiema(ctx){
+            return new Siema({
+                selector: siema,
+                duration: ctx.getElementSettings( 'siema_duration' ).size,
+                easing: ctx.getElementSettings( 'siema_easing' ),
+                perPage: {
+                    0: (ctx.getElementSettings( 'number-slides_mobile' ) != undefined) ? ctx.getElementSettings( 'number-slides_mobile' ) : "1", 
+                    [mobileBreakpoint] : (ctx.getElementSettings( 'number-slides_tablet' ) != undefined) ? ctx.getElementSettings( 'number-slides_tablet' ) : "2",
+                    [tabletBreakpoint] : (ctx.getElementSettings( 'number-slides' ) != undefined) ? ctx.getElementSettings( 'number-slides' ) : "3"
+                },
+                startIndex: ctx.getElementSettings( 'siema_startIndex' ),
+                draggable: (ctx.getElementSettings( 'siema_draggable' ) != '') ? true : false,
+                multipleDrag: (ctx.getElementSettings( 'siema_multipleDrag' ) != '') ? true : false,
+                threshold: ctx.getElementSettings( 'siema_threshold' ).size,
+                loop: (ctx.getElementSettings( 'siema_loop' ) != '') ? true : false,
+                rtl: (ctx.getElementSettings( 'siema_rtl' ) != '') ? true : false,
+                onChange: changeSlide,
+                overflow: false,
+            })
+        }
 
         if(siema.parentNode.querySelector(".prev") != undefined) {
             let prev = siema.parentNode.querySelector('.prev');
