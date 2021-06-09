@@ -103,8 +103,29 @@ $this->start_controls_section(
                         'default' => Global_Colors::COLOR_PRIMARY,
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more, {{WRAPPER}} .elementor-slider-addon-item-content__read-more a' => 'color: {{VALUE}};',
+                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more' => 'color: {{VALUE}};',
                     ],
+                ]
+            );
+            $this->add_control(
+                'read-more_bg_color',
+                [
+                    'label' => __( 'Background Color', self::$slug ),
+                    'type' => Controls_Manager::COLOR,
+                    'global' => [
+                        'default' => Global_Colors::COLOR_PRIMARY,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more' => 'background-color: {{VALUE}};',
+                    ],
+                ]
+            );
+            $this->add_group_control(
+                \Elementor\Group_Control_Border::get_type(),
+                [
+                    'name' => 'read-more_border',
+                    'label' => __( 'Border', self::$slug ),
+                    'selector' => '{{WRAPPER}} .elementor-slider-addon-item-content__read-more',
                 ]
             );
 
@@ -125,8 +146,30 @@ $this->start_controls_section(
                         'default' => Global_Colors::COLOR_PRIMARY,
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover, {{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover a' => 'color: {{VALUE}};',
+                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover' => 'color: {{VALUE}};',
                     ],
+                ]
+            );
+            $this->add_control(
+                'read-more_hover_bg_color',
+                [
+                    'label' => __( 'Background Color', self::$slug ),
+                    'type' => Controls_Manager::COLOR,
+                    'global' => [
+                        'default' => Global_Colors::COLOR_PRIMARY,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover' => 'background-color: {{VALUE}};',
+                    ],
+                ]
+            );
+            
+            $this->add_group_control(
+                \Elementor\Group_Control_Border::get_type(),
+                [
+                    'name' => 'read-more_hover_border',
+                    'label' => __( 'Border', self::$slug ),
+                    'selector' => '{{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover',
                 ]
             );
 

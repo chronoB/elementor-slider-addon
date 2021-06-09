@@ -63,6 +63,6 @@
 }
 
 .elementor-slider-addon-item-content__read-more{
-    display:flex;
+    display:inline-flex;
     align-items: center;
 }
