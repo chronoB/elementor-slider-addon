@@ -15,4 +15,8 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
+<<<<<<< HEAD
           path: ${{ github.workspace }}/elementor-slider-addon.zip
+=======
+          path: ${{ github.workspace }}/result.zip
+>>>>>>> 1db12c31e538ca7094215f6a6d55ca1fea560848
