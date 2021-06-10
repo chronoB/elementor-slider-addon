@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Zipping
-      - run: |
+        run: |
           zip assets/ widgets/ elementor-slider-addon.php
       - name: Generate Changelog
         uses: release-drafter/release-drafter@v5
