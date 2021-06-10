@@ -1,0 +1,29 @@
+name: Release Plugin
+
+on: 
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Zipping
+        run: |
+          zip elementor-slider-addon.zip assets/ widgets/ elementor-slider-addon.php
+      - name: Generate Changelog
+        id: generate_changelog
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body: ${{ steps.generate_changelog.outputs.body }}
+          files: elementor-slider-addon.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
