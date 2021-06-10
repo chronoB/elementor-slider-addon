@@ -27,7 +27,7 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
 
         var hideLeft =  this.getElementSettings( 'hide-left' )
         function changeSlide() {
-            if(hideLeft === "1") {
+            if(hideLeft) {
                 siemaSlider[siema].innerElements.forEach((slide, i) => {
                     if(i >= siemaSlider[siema].currentSlide) {
                         siemaSlider[siema].innerElements[i].classList.remove('gone');
