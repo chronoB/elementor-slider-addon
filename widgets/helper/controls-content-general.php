@@ -14,7 +14,7 @@ $this->add_control(
     [
         'label' => __('Slider Content', self::$slug),
         'type' => Controls_Manager::SELECT,
-        'default' => 'static',
+        'default' => 'query',
         'options' => [
             'static' => __('Static', self::$slug),
             'query' => __('Query', self::$slug),
