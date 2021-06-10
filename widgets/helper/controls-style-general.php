@@ -21,6 +21,10 @@ $this->add_control(
                 'max' => 100,
             ],
         ],
+        'default' => [
+            'unit' => 'px',
+            'size' => 20,
+        ],
         'selectors' => [
             '{{WRAPPER}}' => '--item-gap: {{SIZE}}{{UNIT}}',
         ],
@@ -35,7 +39,7 @@ $this->add_control(
         'label_on' => __('Show', self::$slug),
         'label_off' => __('Hide', self::$slug),
         'return_value' => 'yes',
-        'default' => 'yes',
+        'default' => '',
         'frontend_available' => true,
     ]
 );
@@ -47,7 +51,7 @@ $this->add_control(
         'label_on' => __('Hide', self::$slug),
         'label_off' => __('Show', self::$slug),
         'return_value' => '1',
-        'default' => '1',
+        'default' => '',
         'frontend_available' => true,
     ]
 );
