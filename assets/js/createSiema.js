@@ -33,22 +33,6 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 })
             }
         }
-        /*
-        new Siema({
-            selector: '.siema',
-            duration: 200,
-            easing: 'ease-out',
-            perPage: 1,
-            startIndex: 0,
-            draggable: true,
-            multipleDrag: true,
-            threshold: 20,
-            loop: false,
-            rtl: false,
-            onInit: () => {},
-            onChange: () => {},
-          });
-        */
         if(siemaSlider[siema] == undefined){
             siemaSlider[siema] = getSiema(this);
             if (typeof elementor !== 'undefined') {
@@ -56,7 +40,7 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 elementor.channels.editor.on('elementor-slider-addon:slider:reload', (el)=>resetSiema(el));
                 function resetSiema(el){
                     siemaSlider[siema].destroy(true);
-                    siemaSlider[siema] = getSiema();
+                    siemaSlider[siema] = getSiema(that);
                 }
             }
         }
