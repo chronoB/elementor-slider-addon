@@ -12,6 +12,7 @@ jobs:
         run: |
           zip elementor-slider-addon.zip assets/ widgets/ elementor-slider-addon.php
       - name: Generate Changelog
+        id: generate_changelog
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
