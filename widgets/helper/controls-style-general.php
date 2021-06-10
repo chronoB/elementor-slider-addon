@@ -28,14 +28,15 @@ $this->add_control(
 );
 // Option to Show/Hide Overflow
 $this->add_control(
-    'section_overflow',
+    'siema_overflow',
     [
-        'label' => __('Section Overflow', self::$slug),
+        'label' => __('Slider Overflow', self::$slug),
         'type' => Controls_Manager::SWITCHER,
         'label_on' => __('Show', self::$slug),
         'label_off' => __('Hide', self::$slug),
         'return_value' => 'yes',
         'default' => 'yes',
+        'frontend_available' => true,
     ]
 );
 $this->add_control(
