@@ -16,18 +16,10 @@ jobs:
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Save Changelog
-        run: |
-          echo ${{ steps.generate_changelog.outputs.body }} > ${{ github.workflow }}-CHANGELOG.txt
-      - name: Archive changelog
-        uses: actions/upload-artifact@v2
-        with:
-          name: changelog
-          path: ${{ github.workflow }}-CHANGELOG.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: ${{ github.workflow }}-CHANGELOG.txt
+          body: ${{ steps.generate_changelog.outputs.body }}
           files: elementor-slider-addon.zip
           tag_name: ${{ steps.generate_changelog.outputs.tag_name }}
         env:
