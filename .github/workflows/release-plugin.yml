@@ -18,9 +18,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Save Changelog
         run: |
-          echo ${{ steps.generate_changelog.body }} > ${{ github.workflow }}-CHANGELOG.txt
-          echo ${{ steps.generate_changelog.outputs }} > ${{ github.workflow }}-CHANGELOG.txt
-      - name: Archive code coverage results
+          echo ${{ steps.generate_changelog.outputs.body }} > ${{ github.workflow }}-CHANGELOG.txt
+      - name: Archive changelog
         uses: actions/upload-artifact@v2
         with:
           name: changelog
