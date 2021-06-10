@@ -12,6 +12,7 @@ jobs:
         with:
           files: assets/ widgets/ elementor-slider-addon.php
           dest: elementor-slider-addon.zip
+          recursive: true
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
