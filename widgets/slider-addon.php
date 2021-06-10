@@ -170,7 +170,7 @@ class Elementor_Slider_Addon extends Widget_Base
         if ($this->get_settings_for_display('show_filter_bar')) {
             $this->render_filter_menu();
         } ?>
-        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings_for_display('section_overflow') ? '' : 'hidden'; ?>">
+        <div class="elementor-slider-addon elementor-grid elementor-posts-container siema" style="overflow:<?php echo $this->get_settings_for_display('siema_overflow') ? '' : 'hidden'; ?>">
         <?php
     }
 
