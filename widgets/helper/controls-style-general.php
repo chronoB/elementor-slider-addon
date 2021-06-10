@@ -50,7 +50,7 @@ $this->add_control(
         'type' => Controls_Manager::SWITCHER,
         'label_on' => __('Hide', self::$slug),
         'label_off' => __('Show', self::$slug),
-        'return_value' => '1',
+        'return_value' => 'yes',
         'default' => '',
         'frontend_available' => true,
     ]
