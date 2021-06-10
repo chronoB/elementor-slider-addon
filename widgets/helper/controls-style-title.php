@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 $this->start_controls_section(
     'title_style',
     [
-        'label' => __('Title', self::$slug),
+        'label' => __('Title', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );

@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 $this->start_controls_section(
     'excerpt_style',
     [
-        'label' => __('Excerpt', self::$slug),
+        'label' => __('Excerpt', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );

@@ -32,7 +32,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     public function get_title()
     {
-        return __('Elementor Slider Addon', self::$slug);
+        return __('Elementor Slider Addon', 'elementor-slider-addon');
     }
 
     public function get_icon()

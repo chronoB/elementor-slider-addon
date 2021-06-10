@@ -5,7 +5,7 @@ use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
 $this->start_controls_section(
     'query_content_section',
     [
-        'label' => __('Query', self::$slug),
+        'label' => __('Query', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_CONTENT,
         'condition' => [
             'slide-content' => 'query'
@@ -30,7 +30,7 @@ $this->end_controls_section();
 $this->start_controls_section(
     'content_settings_section',
     [
-        'label' => __('Content Settings', self::$slug),
+        'label' => __('Content Settings', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_CONTENT,
         'condition' => [
             'slide-content' => 'query'
@@ -41,10 +41,10 @@ $this->start_controls_section(
 $this->add_control(
     'show_title',
     [
-        'label' => __('Show Title', self::$slug),
+        'label' => __('Show Title', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -52,7 +52,7 @@ $this->add_control(
 $this->add_control(
     'title_tag',
     [
-        'label' => __('Title HTML Tag', self::$slug),
+        'label' => __('Title HTML Tag', 'elementor-slider-addon'),
         'type' => Controls_Manager::SELECT,
         'options' => [
             'h1' => 'H1',
@@ -74,10 +74,10 @@ $this->add_control(
 $this->add_control(
     'query_title_as_link',
     [
-        'label' => __('Use Title as Link', self::$slug),
+        'label' => __('Use Title as Link', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Yes', self::$slug),
-        'label_off' => __('No', self::$slug),
+        'label_on' => __('Yes', 'elementor-slider-addon'),
+        'label_off' => __('No', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -85,10 +85,10 @@ $this->add_control(
 $this->add_control(
     'show_categories',
     [
-        'label' => __('Show Categories', self::$slug),
+        'label' => __('Show Categories', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -96,10 +96,10 @@ $this->add_control(
 $this->add_control(
     'category_delimiter',
     [
-        'label' => __('Category delimiter', self::$slug),
+        'label' => __('Category delimiter', 'elementor-slider-addon'),
         'type' => Controls_Manager::TEXT,
-        'default' => __("/", self::$slug),
-        'placeholder' => __('Value Attribute', self::$slug),
+        'default' => __("/", 'elementor-slider-addon'),
+        'placeholder' => __('Value Attribute', 'elementor-slider-addon'),
         'condition' => [
             'show_categories' => 'yes',
         ],
@@ -108,10 +108,10 @@ $this->add_control(
 $this->add_control(
     'show_excerpt',
     [
-        'label' => __('Show Excerpt', self::$slug),
+        'label' => __('Show Excerpt', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -120,10 +120,10 @@ $this->add_control(
 $this->add_control(
     'show_read_more',
     [
-        'label' => __('Show Read More', self::$slug),
+        'label' => __('Show Read More', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -131,10 +131,10 @@ $this->add_control(
 $this->add_control(
     'read_more_text',
     [
-        'label' => __('Read More Text', self::$slug),
+        'label' => __('Read More Text', 'elementor-slider-addon'),
         'type' => Controls_Manager::TEXT,
-        'default' => __("Read More", self::$slug),
-        'placeholder' => __('Value Attribute', self::$slug),
+        'default' => __("Read More", 'elementor-slider-addon'),
+        'placeholder' => __('Value Attribute', 'elementor-slider-addon'),
         'condition' => [
             'show_read_more' => 'yes',
         ],
@@ -143,9 +143,9 @@ $this->add_control(
 $this->add_control(
     'read_more_symbol',
     [
-        'label' => __('Read More Symbol', self::$slug),
+        'label' => __('Read More Symbol', 'elementor-slider-addon'),
         'type' => Controls_Manager::ICONS,
-        'placeholder' => __('Value Attribute', self::$slug),
+        'placeholder' => __('Value Attribute', 'elementor-slider-addon'),
         'default' => [
             'value' => 'fas fa-chevron-right',
             'library' => 'fa-solid',

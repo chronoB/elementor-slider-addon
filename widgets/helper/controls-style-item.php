@@ -5,7 +5,7 @@ use Elementor\Group_Control_Box_Shadow;
 $this->start_controls_section(
     'item_style',
     [
-        'label' => __('Item', self::$slug),
+        'label' => __('Item', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );

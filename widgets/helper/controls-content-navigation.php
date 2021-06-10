@@ -6,17 +6,17 @@ use Elementor\Controls_Manager;
 $this->start_controls_section(
     'navigation_content_section',
     [
-        'label' => __('Navigation', self::$slug),
+        'label' => __('Navigation', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_CONTENT,
     ]
 );
 $this->add_control(
     'show_navigation',
     [
-        'label' => __('Show', self::$slug),
+        'label' => __('Show', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => 'yes',
     ]
@@ -24,7 +24,7 @@ $this->add_control(
 $this->add_control(
     'icon-prev',
     [
-        'label' => __('Previous Icon', self::$slug),
+        'label' => __('Previous Icon', 'elementor-slider-addon'),
         'type' => Controls_Manager::ICONS,
         'default' => [
             'value' => 'fas fa-chevron-left',
@@ -41,7 +41,7 @@ $this->add_control(
 $this->add_control(
     'icon-next',
     [
-        'label' => __('Next Icon', self::$slug),
+        'label' => __('Next Icon', 'elementor-slider-addon'),
         'type' => Controls_Manager::ICONS,
         'default' => [
             'value' => 'fas fa-chevron-right',

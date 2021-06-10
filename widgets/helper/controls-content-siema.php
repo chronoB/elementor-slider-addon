@@ -5,7 +5,7 @@ use Elementor\Controls_Manager;
 $this->start_controls_section(
     'siema_content_section',
     [
-        'label' => __('Slider Configuration', self::$slug),
+        'label' => __('Slider Configuration', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_CONTENT,
     ]
 );
@@ -13,7 +13,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_duration',
     [
-        'label' => __( 'Duration', self::$slug ),
+        'label' => __( 'Duration', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px' ],
         'range' => [
@@ -33,7 +33,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_easing',
     [
-        'label' => __('Easing Function', self::$slug),
+        'label' => __('Easing Function', 'elementor-slider-addon'),
         'type' => Controls_Manager::SELECT,
         'options' => [
             'ease' => 'ease',
@@ -49,7 +49,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_startIndex',
     [
-        'label' => __('Start Index', self::$slug),
+        'label' => __('Start Index', 'elementor-slider-addon'),
         'type' => Controls_Manager::SELECT,
         'options' => [
             '1' => '1',
@@ -66,7 +66,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_draggable',
     [
-        'label' => __( 'Draggable', self::$slug ),
+        'label' => __( 'Draggable', 'elementor-slider-addon' ),
         'type' => \Elementor\Controls_Manager::SWITCHER,
         'return_value' => 'yes',
         'default' => 'yes',
@@ -76,7 +76,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_multipleDrag',
     [
-        'label' => __( 'Multiple Drag', self::$slug ),
+        'label' => __( 'Multiple Drag', 'elementor-slider-addon' ),
         'type' => \Elementor\Controls_Manager::SWITCHER,
         'return_value' => 'yes',
         'default' => 'yes',
@@ -86,7 +86,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_threshold',
     [
-        'label' => __( 'Threshold', self::$slug ),
+        'label' => __( 'Threshold', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px' ],
         'range' => [
@@ -107,7 +107,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_loop',
     [
-        'label' => __( 'Loop', self::$slug ),
+        'label' => __( 'Loop', 'elementor-slider-addon' ),
         'type' => \Elementor\Controls_Manager::SWITCHER,
         'return_value' => 'yes',
         'default' => '',
@@ -117,7 +117,7 @@ $this->start_controls_section(
   $this->add_control(
     'siema_rtl',
     [
-        'label' => __( 'RTL', self::$slug ),
+        'label' => __( 'RTL', 'elementor-slider-addon' ),
         'type' => \Elementor\Controls_Manager::SWITCHER,
         'return_value' => 'yes',
         'default' => '',

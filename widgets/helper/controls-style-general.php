@@ -34,10 +34,10 @@ $this->add_control(
 $this->add_control(
     'siema_overflow',
     [
-        'label' => __('Slider Overflow', self::$slug),
+        'label' => __('Slider Overflow', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Show', self::$slug),
-        'label_off' => __('Hide', self::$slug),
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => '',
         'frontend_available' => true,
@@ -46,10 +46,10 @@ $this->add_control(
 $this->add_control(
     'hide-left',
     [
-        'label' => __('Hide Slides on the Left', self::$slug),
+        'label' => __('Hide Slides on the Left', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => __('Hide', self::$slug),
-        'label_off' => __('Show', self::$slug),
+        'label_on' => __('Hide', 'elementor-slider-addon'),
+        'label_off' => __('Show', 'elementor-slider-addon'),
         'return_value' => 'yes',
         'default' => '',
         'frontend_available' => true,
