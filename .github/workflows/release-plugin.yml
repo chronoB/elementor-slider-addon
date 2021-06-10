@@ -1,6 +1,9 @@
 name: Release Plugin
 
-on: push
+on: 
+  push:
+    tags:
+      - v*
 
 jobs:
   build:
@@ -18,9 +21,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           body: ${{ steps.generate_changelog.outputs.body }}
           files: elementor-slider-addon.zip
-          tag_name: ${{ steps.generate_changelog.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
