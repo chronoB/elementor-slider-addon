@@ -18,8 +18,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Save Changelog
         run: |
-          echo ${{ steps.generate_changelog.outputs.body }} > ${{ github.workflow }}-CHANGELOG.txt
-          echo ${{ steps.generate_changelog.outputs.tag_name }} > ${{ github.workflow }}-CHANGELOG.txt
+          echo ${{ steps.generate_changelog.body }} > ${{ github.workflow }}-CHANGELOG.txt
+          echo ${{ steps.generate_changelog.outputs }} > ${{ github.workflow }}-CHANGELOG.txt
       - name: Archive code coverage results
         uses: actions/upload-artifact@v2
         with:
@@ -30,6 +30,6 @@ jobs:
         with:
           body_path: ${{ github.workflow }}-CHANGELOG.txt
           files: elementor-slider-addon.zip
-          tag_name: ${{ steps.generate_changelog.outputs.tag_name }}
+          tag_name: ${{ steps.generate_changelog.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
