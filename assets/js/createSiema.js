@@ -51,9 +51,9 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 duration: ctx.getElementSettings( 'siema_duration' ).size,
                 easing: ctx.getElementSettings( 'siema_easing' ),
                 perPage: {
-                    0: ctx.getElementSettings( 'number-slides_mobile' ) ? ctx.getElementSettings( 'number-slides_mobile' ) : "1", 
-                    [mobileBreakpoint] : ctx.getElementSettings( 'number-slides_tablet' ) ? ctx.getElementSettings( 'number-slides_tablet' ) : "2",
-                    [tabletBreakpoint] : ctx.getElementSettings( 'number-slides' ) ? ctx.getElementSettings( 'number-slides' ) : "3"
+                    0: ctx.getElementSettings( 'number-slides_mobile' ) ? parseInt(ctx.getElementSettings( 'number-slides_mobile' )) : 1, 
+                    [mobileBreakpoint] : ctx.getElementSettings( 'number-slides_tablet' ) ? parseInt(ctx.getElementSettings( 'number-slides_tablet' )) : 2,
+                    [tabletBreakpoint] : ctx.getElementSettings( 'number-slides' ) ? parseInt(ctx.getElementSettings( 'number-slides' )) : 3
                 },
                 startIndex: ctx.getElementSettings( 'siema_startIndex' ),
                 draggable: ctx.getElementSettings( 'siema_draggable' ) ? true : false,
