@@ -111,9 +111,6 @@ $this->start_controls_section(
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-thumbnail__img' => 'margin-bottom: {{SIZE}}{{UNIT}}',
             ],
-            'default' => [
-                'size' => 20,
-            ],
         ]
     );
 

@@ -1,6 +1,7 @@
 <?php
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 
 
 
@@ -86,6 +87,10 @@ $this->add_control(
                 'max' => 100,
             ],
         ],
+        'default' => [
+            'unit' => 'px',
+            'size' => 40,
+        ],
         'selectors' => [
             '{{WRAPPER}} .elementor-slider-addon-arrow' => 'width: {{SIZE}}{{UNIT}};',
         ],
@@ -108,6 +113,10 @@ $this->add_control(
                 'max' => 100,
             ],
         ],
+        'default' => [
+            'unit' => 'px',
+            'size' => 40,
+        ],
         'selectors' => [
             '{{WRAPPER}} .elementor-slider-addon-arrow' => 'height: {{SIZE}}{{UNIT}};',
         ],
@@ -129,6 +138,10 @@ $this->add_control(
         'selectors' => [
             '{{WRAPPER}} .elementor-slider-addon-arrow-left' => 'margin-left: {{SIZE}}{{UNIT}};',
             '{{WRAPPER}} .elementor-slider-addon-arrow-right' => 'margin-right: {{SIZE}}{{UNIT}};',
+        ],
+        'default' => [
+            'unit' => 'px',
+            'size' => -25,
         ],
         'conditions' => [
             'relation' => 'and',
@@ -198,6 +211,15 @@ $this->add_control(
         'selectors' => [
             '{{WRAPPER}} .elementor-slider-addon-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
         ],
+        'default' => [
+            
+                'top' => 50,
+                'right' => 50,
+                'bottom' => 50,
+                'left' => 50,
+                'unit'=> '%',
+                'isLinked' => true,
+        ],
     ]
 );
 $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
@@ -212,13 +234,10 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
             [
                 'label' => __( 'Icon Color', self::$slug ),
                 'type' => \Elementor\Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => \Elementor\Scheme_Color::get_type(),
-                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} .elementor-slider-addon-arrow' => 'color: {{VALUE}}',
                 ],
+                'default' => '#FFFFFF',
             ]
         );
 
@@ -238,6 +257,7 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
                 'selectors' => [
                     '{{WRAPPER}} .elementor-slider-addon-arrow' => 'background-color: {{VALUE}}',
                 ],
+                'default' => '#000000',
             ]
         );
 

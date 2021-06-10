@@ -98,7 +98,7 @@ $this->add_control(
     [
         'label' => __('Category delimiter', self::$slug),
         'type' => Controls_Manager::TEXT,
-        'default' => __("-", self::$slug),
+        'default' => __("/", self::$slug),
         'placeholder' => __('Value Attribute', self::$slug),
         'condition' => [
             'show_categories' => 'yes',
@@ -147,7 +147,7 @@ $this->add_control(
         'type' => Controls_Manager::ICONS,
         'placeholder' => __('Value Attribute', self::$slug),
         'default' => [
-            'value' => 'fas fa-arrow-right',
+            'value' => 'fas fa-chevron-right',
             'library' => 'fa-solid',
         ],
         'skin' => 'inline',

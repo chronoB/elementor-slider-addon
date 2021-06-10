@@ -18,7 +18,7 @@ $this->start_controls_section(
         [
             'name' => 'read-more_typography',
             'global' => [
-                'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+                'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
             ],
             'selector' => '{{WRAPPER}} .elementor-slider-addon-item-content__read-more, {{WRAPPER}} .elementor-slider-addon-item-content__read-more a',
             
@@ -66,6 +66,9 @@ $this->start_controls_section(
                     'max' => 100,
                 ],
             ],
+            'default' => [
+                'size' => 5,
+            ],
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-content__read-more i' => 'margin-left: {{SIZE}}{{UNIT}};',
             ],
@@ -80,6 +83,9 @@ $this->start_controls_section(
                 'px' => [
                     'max' => 100,
                 ],
+            ],
+            'default' => [
+                'size' => 10,
             ],
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-content__read-more i' => 'font-size: {{SIZE}}{{UNIT}};',

@@ -51,6 +51,9 @@ $this->start_controls_section(
                     'max' => 100,
                 ],
             ],
+            'default' => [
+                'size' => 10,
+            ],
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-content__categories' => 'margin-bottom: {{SIZE}}{{UNIT}};',
             ],
@@ -66,9 +69,13 @@ $this->start_controls_section(
                     'max' => 100,
                 ],
             ],
+            'default' => [
+                'size' => 5,
+            ],
             'selectors' => [
-                '{{WRAPPER}} .elementor-slider-addon-item-content__category:first-child' => 'margin-right: {{SIZE}}{{UNIT}}',
+                '{{WRAPPER}} .elementor-slider-addon-item-content__category:first-child' => 'margin-right: {{SIZE}}{{UNIT}};',
                 '{{WRAPPER}} .elementor-slider-addon-item-content__category:last-child' => 'margin-left: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .elementor-slider-addon-item-content__category:only-child' => 'margin-right: 0; margin-left: 0;',
                 '{{WRAPPER}} .elementor-slider-addon-item-content__category:not(:first-child):not(:last-child)' => 'margin-right: {{SIZE}}{{UNIT}};margin-left: {{SIZE}}{{UNIT}};',
             ],
         ]

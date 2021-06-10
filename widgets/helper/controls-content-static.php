@@ -95,7 +95,7 @@ $repeater->add_control(
         'type' => Controls_Manager::ICONS,
         'placeholder' => __('Value Attribute', self::$slug),
         'default' => [
-            'value' => 'fas fa-arrow-right',
+            'value' => 'fas fa-chevron-right',
             'library' => 'fa-solid',
         ],
         'skin' => 'inline',

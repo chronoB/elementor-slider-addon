@@ -27,7 +27,7 @@ $this->add_control(
         'label' => __('Previous Icon', self::$slug),
         'type' => Controls_Manager::ICONS,
         'default' => [
-            'value' => 'fas fa-arrow-left',
+            'value' => 'fas fa-chevron-left',
             'library' => 'fa-solid',
         ],
         'condition' => [
@@ -44,7 +44,7 @@ $this->add_control(
         'label' => __('Next Icon', self::$slug),
         'type' => Controls_Manager::ICONS,
         'default' => [
-            'value' => 'fas fa-arrow-right',
+            'value' => 'fas fa-chevron-right',
             'library' => 'fa-solid',
         ],
         'condition' => [
