@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Zipping
         run: |
-          zip elementor-slider-addon.zip assets/ widgets/ elementor-slider-addon.php
+          zip -r elementor-slider-addon.zip elementor-slider-addon.php assets/ widgets/
       - name: Generate Changelog
         id: generate_changelog
         uses: release-drafter/release-drafter@v5
