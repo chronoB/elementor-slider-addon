@@ -116,6 +116,21 @@ $this->add_control(
         'default' => 'yes',
     ]
 );
+$this->add_control(
+    'show_product_data',
+    [
+        'label' => __('Show Product Data', 'elementor-slider-addon'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
+        'return_value' => 'yes',
+        'default' => 'yes',
+        'condition' => [
+            'show_categories' => 'yes',
+        ],
+    ]
+);
+
 
 $this->add_control(
     'show_read_more',
