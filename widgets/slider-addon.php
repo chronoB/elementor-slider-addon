@@ -221,6 +221,8 @@ class Elementor_Slider_Addon extends Widget_Base
         $this->render_post_categories();
         $this->render_post_excerpt();
         $this->render_post_read_more();
+        if($this->get_query()->query["post_type"]==="product")
+            $this->render_post_product();
         $this->render_content_footer();
     }
 
@@ -283,6 +285,23 @@ class Elementor_Slider_Addon extends Widget_Base
         } ?>
         <div class="elementor-slider-addon-item-content__excerpt" style="order:<?php echo $this->get_settings_for_display('excerpt_order') ?>">
             <?php the_excerpt(); ?>
+        </div>
+        <?php
+    }
+
+    protected function render_post_product()
+    {
+        if (!$this->get_settings_for_display('show_product_data')) {
+            return;
+        } 
+        ?>
+        
+        <div class="elementor-slider-addon-item-content__product" style="order:<?php echo $this->get_settings_for_display('excerpt_order') ?>">
+            <?php 
+                global $post;
+                do_action( 'woocommerce_after_shop_loop_item' );
+                do_shortcode( '[add_to_cart id="' . $post->ID . '"]' );
+            ?>
         </div>
         <?php
     }
