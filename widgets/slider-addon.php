@@ -32,7 +32,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     public function get_title()
     {
-        return __('Elementor Slider Addon', self::$slug);
+        return __('Elementor Slider Addon', 'elementor-slider-addon');
     }
 
     public function get_icon()
@@ -193,9 +193,10 @@ class Elementor_Slider_Addon extends Widget_Base
         $classes = [
             'elementor-slider-addon-item',
             'elementor-post',
+            $this->get_settings_for_display('content_above_thumbnail') ?  'content-above-thumbnail' :  '',
             implode(' ', $tags_classes),
         ]; ?>
-        <article <?php post_class($classes); ?>>
+        <article <?php post_class($classes);?>>
         <?php
     }
 
@@ -238,7 +239,7 @@ class Elementor_Slider_Addon extends Widget_Base
         
 
         $tag = Utils::validate_html_tag($this->get_settings_for_display('title_tag')); ?>
-        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
+        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title" style="order:<?php echo $this->get_settings_for_display('title_order') ?>">
         <?php
         if($this->get_settings_for_display('slide-content')=="query" && $this->get_settings_for_display('query_title_as_link')){
             ?>
@@ -265,7 +266,7 @@ class Elementor_Slider_Addon extends Widget_Base
         $categories = get_the_category();
         if (!empty($categories)) {
             $separator = $this->get_settings_for_display('category_delimiter');
-            $output = '<div class="elementor-slider-addon-item-content__categories">';
+            $output = '<div class="elementor-slider-addon-item-content__categories" style="order:' . $this->get_settings_for_display('categories_order') . '">';
             foreach ($categories as $category) {
                 $output .= '<a class="elementor-slider-addon-item-content__category" href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>' . $separator;
             }
@@ -280,7 +281,7 @@ class Elementor_Slider_Addon extends Widget_Base
         if (!$this->get_settings_for_display('show_excerpt')) {
             return;
         } ?>
-        <div class="elementor-slider-addon-item-content__excerpt">
+        <div class="elementor-slider-addon-item-content__excerpt" style="order:<?php echo $this->get_settings_for_display('excerpt_order') ?>">
             <?php the_excerpt(); ?>
         </div>
         <?php
@@ -291,7 +292,7 @@ class Elementor_Slider_Addon extends Widget_Base
         if (!$this->get_settings_for_display('show_read_more')) {
             return;
         } ?>
-        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $this->current_permalink; ?>">
+        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $this->current_permalink; ?>"style="order:<?php echo $this->get_settings_for_display('read-more_order') ?>">
             <span><?php echo $this->get_settings_for_display('read_more_text');?></span>
             <?php Icons_Manager::render_icon($this->get_settings_for_display('read_more_symbol'), ['aria-hidden' => 'true']); ?>
         </a>
@@ -330,7 +331,7 @@ class Elementor_Slider_Addon extends Widget_Base
     protected function render_static_header()
     {
         ?>
-        <article class='elementor-slider-addon-item'>
+        <article class='elementor-slider-addon-item <?php echo $this->get_settings_for_display('content_above_thumbnail') ?  'content-above-thumbnail' :  ''; ?>'>
         <?php
     }
 
@@ -361,7 +362,7 @@ class Elementor_Slider_Addon extends Widget_Base
     protected function render_static_title($item)
     {
         $tag = Utils::validate_html_tag($item['repeater_headline_tag']); ?>
-        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title">
+        <<?php echo $tag; ?> class="elementor-slider-addon-item-content__title" style="order:<?php echo $this->get_settings_for_display('title_order') ?>">
         <?php 
         if($this->get_settings_for_display('static_title_as_link')){
             ?>
@@ -384,7 +385,7 @@ class Elementor_Slider_Addon extends Widget_Base
     protected function render_static_description($item)
     {
         ?>
-        <div class="elementor-slider-addon-item-content__excerpt">
+        <div class="elementor-slider-addon-item-content__excerpt" style="order:<?php echo $this->get_settings_for_display('excerpt_order') ?>">
             <?php echo $item['repeater_description'] ?>
         </div>
         <?php
@@ -397,7 +398,7 @@ class Elementor_Slider_Addon extends Widget_Base
             return;
         }
         ?>
-        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']['url']; ?>">
+        <a class="elementor-slider-addon-item-content__read-more" href="<?php echo $item['repeater_read_more_url']['url']; ?>" style="order:<?php echo $this->get_settings_for_display('read-more_order') ?>">
             <span><?php echo $item['repeater_read_more_text'];?></span>
             <?php Icons_Manager::render_icon($item['repeater_read_more_icon'], ['aria-hidden' => 'true']);
             ?>

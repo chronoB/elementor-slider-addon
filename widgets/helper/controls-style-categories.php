@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 $this->start_controls_section(
     'categories_style',
     [
-        'label' => __('Categories', self::$slug),
+        'label' => __('Categories', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );
@@ -62,7 +62,7 @@ $this->start_controls_section(
     $this->add_control(
         'categories_spacing_internal',
         [
-            'label' => __( 'Spacing between elements', self::$slug ),
+            'label' => __( 'Spacing between elements', 'elementor-slider-addon' ),
             'type' => Controls_Manager::SLIDER,
             'range' => [
                 'px' => [
@@ -78,6 +78,13 @@ $this->start_controls_section(
                 '{{WRAPPER}} .elementor-slider-addon-item-content__category:only-child' => 'margin-right: 0; margin-left: 0;',
                 '{{WRAPPER}} .elementor-slider-addon-item-content__category:not(:first-child):not(:last-child)' => 'margin-right: {{SIZE}}{{UNIT}};margin-left: {{SIZE}}{{UNIT}};',
             ],
+        ]
+    );
+    $this->add_control(
+        'categories_order',
+        [
+            'label' => __( 'Position in the content section', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::NUMBER,
         ]
     );
     $this->start_controls_tabs( 'categories_effects_tabs' );

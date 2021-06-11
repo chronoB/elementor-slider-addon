@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 $this->start_controls_section(
     'navigation_style_section',
     [
-        'label' => __('Navigation', self::$slug),
+        'label' => __('Navigation', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
         'condition' => [
             'show_navigation' => 'yes'
@@ -18,12 +18,12 @@ $this->start_controls_section(
 $this->add_control(
     'navigation_position',
     [
-        'label' => __('Position', self::$slug),
+        'label' => __('Position', 'elementor-slider-addon'),
         'type' => Controls_Manager::SELECT,
         'options' => [
-            'above' => __('Above', self::$slug),
-            'around' => __('Around', self::$slug),
-            'below' => __('Below', self::$slug),
+            'above' => __('Above', 'elementor-slider-addon'),
+            'around' => __('Around', 'elementor-slider-addon'),
+            'below' => __('Below', 'elementor-slider-addon'),
         ],
         'default' => 'around',
         'toggle' => true,
@@ -33,19 +33,19 @@ $this->add_control(
 $this->add_control(
     'navigation_alignment',
     [
-        'label' => __('Alignment', self::$slug),
+        'label' => __('Alignment', 'elementor-slider-addon'),
         'type' => Controls_Manager::CHOOSE,
         'options' => [
             'left' => [
-                'title' => __('Left', self::$slug),
+                'title' => __('Left', 'elementor-slider-addon'),
                 'icon' => 'fa fa-align-left',
             ],
             'center' => [
-                'title' => __('Center', self::$slug),
+                'title' => __('Center', 'elementor-slider-addon'),
                 'icon' => 'fa fa-align-center',
             ],
             'right' => [
-                'title' => __('Right', self::$slug),
+                'title' => __('Right', 'elementor-slider-addon'),
                 'icon' => 'fa fa-align-right',
             ],
         ],
@@ -73,7 +73,7 @@ $this->add_control(
 $this->add_control(
     'nav_bg_width',
     [
-        'label' => __( 'Background Width', self::$slug ),
+        'label' => __( 'Background Width', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px', '%' ],
         'range' => [
@@ -99,7 +99,7 @@ $this->add_control(
 $this->add_control(
     'nav_bg_height',
     [
-        'label' => __( 'Background Height', self::$slug ),
+        'label' => __( 'Background Height', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px', '%' ],
         'range' => [
@@ -125,7 +125,7 @@ $this->add_control(
 $this->add_control(
     'nav_bg_width_offset',
     [
-        'label' => __( 'Icon Width Offset', self::$slug ),
+        'label' => __( 'Icon Width Offset', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px' ],
         'range' => [
@@ -163,7 +163,7 @@ $this->add_control(
 $this->add_control(
     'nav_bg_height_offset',
     [
-        'label' => __( 'Icon Height Offset', self::$slug ),
+        'label' => __( 'Icon Height Offset', 'elementor-slider-addon' ),
         'type' => Controls_Manager::SLIDER,
         'size_units' => [ 'px', '%' ],
         'range' => [
@@ -232,7 +232,7 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
         $this->add_control(
             'nav_icon_color',
             [
-                'label' => __( 'Icon Color', self::$slug ),
+                'label' => __( 'Icon Color', 'elementor-slider-addon' ),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .elementor-slider-addon-arrow' => 'color: {{VALUE}}',
@@ -282,7 +282,7 @@ $this->start_controls_tabs( 'navigation_bg_effects_tabs' );
         $this->add_control(
             'nav_icon_color_hover',
             [
-                'label' => __( 'Icon Color', self::$slug ),
+                'label' => __( 'Icon Color', 'elementor-slider-addon' ),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => \Elementor\Scheme_Color::get_type(),

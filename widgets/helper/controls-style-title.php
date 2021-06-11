@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 $this->start_controls_section(
     'title_style',
     [
-        'label' => __('Title', self::$slug),
+        'label' => __('Title', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );
@@ -54,6 +54,13 @@ $this->start_controls_section(
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-content__title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
             ],
+        ]
+    );
+    $this->add_control(
+        'title_order',
+        [
+            'label' => __( 'Position in the content section', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::NUMBER,
         ]
     );
     $this->start_controls_tabs( 'title_effects_tabs' );

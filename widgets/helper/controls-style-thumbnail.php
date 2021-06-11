@@ -6,7 +6,7 @@ use Elementor\Group_Control_Css_Filter;
 $this->start_controls_section(
     'thumbnail_style',
     [
-        'label' => __('Thumbnail', self::$slug),
+        'label' => __('Thumbnail', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );

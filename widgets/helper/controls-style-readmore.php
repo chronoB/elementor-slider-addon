@@ -8,7 +8,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 $this->start_controls_section(
     'read-more_style',
     [
-        'label' => __('Read more', self::$slug),
+        'label' => __('Read more', 'elementor-slider-addon'),
         'tab' => Controls_Manager::TAB_STYLE,
     ]
 );
@@ -59,7 +59,7 @@ $this->start_controls_section(
     $this->add_control(
         'read-more_spacing_internal',
         [
-            'label' => __( 'Spacing between text and icon', self::$slug ),
+            'label' => __( 'Spacing between text and icon', 'elementor-slider-addon' ),
             'type' => Controls_Manager::SLIDER,
             'range' => [
                 'px' => [
@@ -77,7 +77,7 @@ $this->start_controls_section(
     $this->add_control(
         'read-more_icon_size',
         [
-            'label' => __( 'Icon Size', self::$slug ),
+            'label' => __( 'Icon Size', 'elementor-slider-addon' ),
             'type' => Controls_Manager::SLIDER,
             'range' => [
                 'px' => [
@@ -90,6 +90,13 @@ $this->start_controls_section(
             'selectors' => [
                 '{{WRAPPER}} .elementor-slider-addon-item-content__read-more i' => 'font-size: {{SIZE}}{{UNIT}};',
             ],
+        ]
+    );
+    $this->add_control(
+        'read-more_order',
+        [
+            'label' => __( 'Position in the content section', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::NUMBER,
         ]
     );
     $this->start_controls_tabs( 'read-more_effects_tabs' );
@@ -116,7 +123,7 @@ $this->start_controls_section(
             $this->add_control(
                 'read-more_bg_color',
                 [
-                    'label' => __( 'Background Color', self::$slug ),
+                    'label' => __( 'Background Color', 'elementor-slider-addon' ),
                     'type' => Controls_Manager::COLOR,
                     'global' => [
                         'default' => Global_Colors::COLOR_PRIMARY,
@@ -130,7 +137,7 @@ $this->start_controls_section(
                 \Elementor\Group_Control_Border::get_type(),
                 [
                     'name' => 'read-more_border',
-                    'label' => __( 'Border', self::$slug ),
+                    'label' => __( 'Border', 'elementor-slider-addon' ),
                     'selector' => '{{WRAPPER}} .elementor-slider-addon-item-content__read-more',
                 ]
             );
@@ -159,7 +166,7 @@ $this->start_controls_section(
             $this->add_control(
                 'read-more_hover_bg_color',
                 [
-                    'label' => __( 'Background Color', self::$slug ),
+                    'label' => __( 'Background Color', 'elementor-slider-addon' ),
                     'type' => Controls_Manager::COLOR,
                     'global' => [
                         'default' => Global_Colors::COLOR_PRIMARY,
@@ -174,7 +181,7 @@ $this->start_controls_section(
                 \Elementor\Group_Control_Border::get_type(),
                 [
                     'name' => 'read-more_hover_border',
-                    'label' => __( 'Border', self::$slug ),
+                    'label' => __( 'Border', 'elementor-slider-addon' ),
                     'selector' => '{{WRAPPER}} .elementor-slider-addon-item-content__read-more:hover',
                 ]
             );
