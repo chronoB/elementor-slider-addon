@@ -55,5 +55,18 @@ $this->add_control(
         'frontend_available' => true,
     ]
 );
+$this->add_control(
+    'content_above_thumbnail',
+    [
+        'label' => __('Display Content above the Thumbnail', 'elementor-slider-addon'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => __('Above', 'elementor-slider-addon'),
+        'label_off' => __('Below', 'elementor-slider-addon'),
+        'return_value' => 'yes',
+        'default' => '',
+        'frontend_available' => true,
+    ]
+);
+
 
 $this->end_controls_section();

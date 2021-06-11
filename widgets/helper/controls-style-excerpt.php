@@ -56,6 +56,13 @@ $this->start_controls_section(
             ],
         ]
     );
+    $this->add_control(
+        'excerpt_order',
+        [
+            'label' => __( 'Position in the content section', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::NUMBER,
+        ]
+    );
     $this->start_controls_tabs( 'excerpt_effects_tabs' );
 
         $this->start_controls_tab( 'excerpt_normal',

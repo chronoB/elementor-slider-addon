@@ -92,6 +92,13 @@ $this->start_controls_section(
             ],
         ]
     );
+    $this->add_control(
+        'read-more_order',
+        [
+            'label' => __( 'Position in the content section', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::NUMBER,
+        ]
+    );
     $this->start_controls_tabs( 'read-more_effects_tabs' );
 
         $this->start_controls_tab( 'read-more_normal',

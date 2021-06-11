@@ -18,6 +18,17 @@
     padding-left: calc( var( --item-gap ) / 2 );
 }
 
+.elementor-slider-addon-item{
+    display: grid;
+}
+.elementor-slider-addon-item.content-above-thumbnail > .elementor-slider-addon-item-thumbnail {
+    order: 2;
+}
+
+.elementor-slider-addon-item-content{
+    display: grid;
+}
+
 .elementor-slider-addon--align-left .elementor-slider-addon-item-content {
     text-align: left;
 }
