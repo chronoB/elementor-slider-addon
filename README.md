@@ -1,5 +1,5 @@
 # <div align="center">Elementor-Slider-Addon</div>
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/chronoB/elementor-slider-addon?include_prereleases)
+<div align="center">![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/chronoB/elementor-slider-addon?include_prereleases)</div>
 
 Lightweight easy-to-use slider widget for Elementor. Based on the siema-slider (https://pawelgrzybek.github.io/siema/) it creates an Elementor Widget to display querys or static content.
 
