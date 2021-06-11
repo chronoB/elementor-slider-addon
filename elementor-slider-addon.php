@@ -3,7 +3,7 @@
  * Plugin Name: Elementor Slider Addon
  * Description: Lightweight easy-to-use slider widget for Elementor. Needs Elementor Pro.
  * Author URI:  https://www.parallachs.de
- * Version:     1.0.0
+ * Version:     0.2
  * Author:      Finn Bayer
  * Text Domain: elementor-slider-addon
  */
