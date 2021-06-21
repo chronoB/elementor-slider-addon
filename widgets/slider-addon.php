@@ -296,7 +296,7 @@ class Elementor_Slider_Addon extends Widget_Base
         } 
         ?>
         
-        <div class="elementor-slider-addon-item-content__product" style="order:<?php echo $this->get_settings_for_display('excerpt_order') ?>">
+        <div class="elementor-slider-addon-item-content__product woocommerce" style="order:<?php echo $this->get_settings_for_display('product_order') ?>">
             <?php 
                 global $post;
                 do_action( 'woocommerce_after_shop_loop_item' );
