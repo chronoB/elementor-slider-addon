@@ -7,35 +7,30 @@ class ItemRatioHandler extends elementorModules.frontend.handlers.Base {
 
     bindEvents() {
         jQuery(document).ready( this.initItemRatio() );
-        jQuery(window).resize(this.initItemRatio() );
     }
 
     initItemRatio(){
         if (!this.getElementSettings( 'item_ratio' )){
             return;
         }
-    
-        let itemRatio = parseInt(this.getElementSettings( 'item_ratio' ))
-        
-        let sliderEl = document.querySelector(".elementor-slider-addon");
-        sliderEl.classList.add("elementor-has-item-ratio")
-        console.log("yau")
-        let thumbs = sliderEl.querySelectorAll(".elementor-post__thumbnail")
-        thumbs.forEach((curThumb)=>{
-            let _img = curThumb.querySelector("img")
-
-            if(_img){
-                console.log(curThumb.clientHeight)
-                console.log(_img.clientHeight)
-                if (curThumb.clientHeight >= _img.clientHeight){
-                    curThumb.classList.add("elementor-fit-height")
-                }else{
-                    curThumb.classList.remove("elementor-fit-height")
-                }
-            }
-        });
-        
+        checkItemRatio()
     }
+}
+function checkItemRatio(){
+    let sliderEl = document.querySelector(".elementor-slider-addon");
+    sliderEl.classList.add("elementor-has-item-ratio")
+    let thumbs = sliderEl.querySelectorAll(".elementor-post__thumbnail")
+    thumbs.forEach((curThumb)=>{
+        let _img = curThumb.querySelector("img")
+        if(_img){
+            if (curThumb.clientHeight > _img.clientHeight){
+                curThumb.classList.add("elementor-fit-height")
+            }else if (curThumb.clientHeight = _img.clientHeight) {
+                if( curThumb.clientWidth >= _img.clientWidth)
+                    curThumb.classList.remove("elementor-fit-height")
+            }
+        }
+    });
 }
 
 jQuery( window ).on( 'elementor/frontend/init', () => {
@@ -44,6 +39,16 @@ jQuery( window ).on( 'elementor/frontend/init', () => {
             $element,
         } );
     };
+    if(typeof elementor !== 'undefined'){
+        elementor.channels.editor.on('change',function( view ) {
+            var changed = view.elementSettingsModel.changed;
+            if (changed.item_ratio){
+                checkItemRatio()
+            }
+        });
+    }
 
     elementorFrontend.hooks.addAction( 'frontend/element_ready/elementor-slider-addon.default', addHandler );
+
+
 } );
