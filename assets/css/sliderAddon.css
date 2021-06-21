@@ -11,7 +11,7 @@
 .siema a > * {
     pointer-events: none !important;
 }
-.siema > div > div article.elementor-post {
+.siema > div > div article.elementor-slider-addon-item {
     width:100%;
     margin-top: 0;
     padding-right: calc( var( --item-gap ) / 2 );
