@@ -25,8 +25,8 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
             siema.closest("section").style.overflow = "hidden";
         }
 
-        var hideLeft =  this.getElementSettings( 'hide-left' )
         function changeSlide() {
+            var hideLeft =  this.getElementSettings( 'hide-left' )
             if(hideLeft) {
                 siemaSlider[siema].innerElements.forEach((slide, i) => {
                     if(i >= siemaSlider[siema].currentSlide) {
@@ -41,7 +41,12 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
             siemaSlider[siema] = getSiema(this);
             if (typeof elementor !== 'undefined') {
                 let that = this;
-                elementor.channels.editor.on('elementor-slider-addon:slider:reload', (el)=>resetSiema(el));
+                elementor.channels.editor.on('change', (el)=>{
+                    var changed = el.elementSettingsModel.changed;
+                    if(changed["number-slides"] || changed["number-slides_mobile"] || changed["number-slides_tablet"]  )
+                        resetSiema(el)
+                });
+                
                 function resetSiema(el){
                     siemaSlider[siema].destroy(true);
                     siemaSlider[siema] = getSiema(that);
