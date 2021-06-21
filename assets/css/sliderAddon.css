@@ -32,11 +32,20 @@
 .elementor-slider-addon--align-left .elementor-slider-addon-item-content {
     text-align: left;
 }
+.elementor-slider-addon--align-left .elementor-slider-addon-item-content .elementor-slider-addon-item-content__read-more{
+    justify-content: flex-start;
+}
 .elementor-slider-addon--align-right .elementor-slider-addon-item-content {
     text-align: right;
 }
+.elementor-slider-addon--align-right .elementor-slider-addon-item-content .elementor-slider-addon-item-content__read-more{
+    justify-content: flex-end;
+}
 .elementor-slider-addon--align-center .elementor-slider-addon-item-content {
     text-align: center;
+}
+.elementor-slider-addon--align-center .elementor-slider-addon-item-content .elementor-slider-addon-item-content__read-more{
+    justify-content: center;
 }
 
 .elementor-slider-addon-arrow--align-left > .elementor-widget-container{
@@ -45,8 +54,14 @@
 .elementor-slider-addon-arrow--align-center > .elementor-widget-container{
     text-align: center;
 }
+.elementor-slider-addon-arrow--align-center > .elementor-widget-container .elementor-slider-addon{
+    text-align: left;
+}
 .elementor-slider-addon-arrow--align-right > .elementor-widget-container{
     text-align: right;
+}
+.elementor-slider-addon-arrow--align-right > .elementor-widget-container .elementor-slider-addon{
+    text-align: left;
 }
 
 .elementor-slider-addon-arrow--position-around .elementor-slider-addon-arrow{
