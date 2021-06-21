@@ -52,16 +52,4 @@ $this->add_responsive_control(
   ]
 );
 
-
-$this->add_control(
-    'reload_slider',
-    [
-        'label' => __( 'Reload Slider', 'elementor-slider-addon' ),
-        'type' => \Elementor\Controls_Manager::BUTTON,
-        'button_type' => 'default',
-        'description' => 'Reload the Slider in the backend if you change the number of slides',
-        'text' => __( 'Reload', 'elementor-slider-addon' ),
-        'event' => 'elementor-slider-addon:slider:reload',
-    ]
-);
 $this->end_controls_section();
