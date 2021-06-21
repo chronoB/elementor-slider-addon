@@ -19,6 +19,7 @@ class Elementor_Slider_Addon extends Widget_Base
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
+        wp_register_script('item_ratio_js', plugins_url('../assets/js/itemRatio.js', __FILE__), ['elementor-frontend'], '1.0.1', true);
         wp_register_script('siema_slider_js', plugins_url('../assets/js/createSiema.js', __FILE__), ['elementor-frontend'], '1.0.1', true);
         wp_register_script('siema_slider_framework_js', plugins_url('../assets/js/siemaFramework.js', __FILE__), ['elementor-frontend'], '1.0.1', true);
 
@@ -50,7 +51,7 @@ class Elementor_Slider_Addon extends Widget_Base
 
     public function get_script_depends()
     {
-        return ['siema_slider_js', 'siema_slider_framework_js'];
+        return [ 'item_ratio_js', 'siema_slider_js', 'siema_slider_framework_js'];
     }
 
     public function get_style_depends()

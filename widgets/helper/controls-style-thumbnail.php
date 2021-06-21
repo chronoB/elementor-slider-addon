@@ -36,6 +36,46 @@ $this->start_controls_section(
         ]
     );
     $this->add_responsive_control(
+        'item_ratio',
+        [
+            'label' => __( 'Image Ratio', 'elementor-pro' ),
+            'type' => Controls_Manager::SLIDER,
+            'default' => [
+                'size' => 0.66,
+            ],
+            'tablet_default' => [
+                'size' => '',
+            ],
+            'mobile_default' => [
+                'size' => 0.5,
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0.1,
+                    'max' => 2,
+                    'step' => 0.01,
+                ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .elementor-slider-addon .elementor-slider-addon-item-thumbnail' => 'padding-bottom: calc( {{SIZE}} * 100% );',
+                '{{WRAPPER}}:after' => 'content: "{{SIZE}}";',
+            ],
+            'frontend_available' => true,
+        ]
+    );
+
+    $this->add_control(
+        'reload_slider_item_ratio',
+        [
+            'label' => __( 'Reload Slider', 'elementor-slider-addon' ),
+            'type' => \Elementor\Controls_Manager::BUTTON,
+            'button_type' => 'default',
+            'description' => 'Reload the Slider in the backend if you change the item ratio to make changes visible',
+            'text' => __( 'Reload', 'elementor-slider-addon' ),
+            'event' => 'elementor-slider-addon:slider:reload',
+        ]
+    );
+    $this->add_responsive_control(
         'image_width',
         [
             'label' => __( 'Image Width', 'elementor-pro' ),
