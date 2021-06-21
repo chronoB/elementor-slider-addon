@@ -19,7 +19,7 @@ $this->add_control(
             'static' => __('Static', 'elementor-slider-addon'),
             'query' => __('Query', 'elementor-slider-addon'),
         ],
-    ],
+    ]
 );
 $this->add_control(
     'number_posts',
