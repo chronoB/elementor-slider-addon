@@ -36,6 +36,33 @@ $this->start_controls_section(
         ]
     );
     $this->add_responsive_control(
+        'slider_max_height',
+        [
+            'label' => __( 'Max. Height of Thumbnail ', 'elementor-slider-addon' ),
+            'type' => Controls_Manager::SLIDER,
+            'default' => [
+                'size' => 300,
+            ],
+            'tablet_default' => [
+                'size' => '',
+            ],
+            'mobile_default' => [
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}}' => '--slider-max-height: {{SIZE}}{{UNIT}}',
+            ],
+            'frontend_available' => true,
+        ]
+    );
+    $this->add_responsive_control(
         'item_ratio',
         [
             'label' => __( 'Image Ratio', 'elementor-pro' ),
@@ -57,7 +84,7 @@ $this->start_controls_section(
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .elementor-slider-addon .elementor-slider-addon-item-thumbnail' => 'padding-bottom: calc( {{SIZE}} * 100% );',
+                '{{WRAPPER}} .elementor-slider-addon .elementor-slider-addon-item-thumbnail' => 'padding-bottom: min(var(--slider-max-height), {{SIZE}} * 100% );',
                 '{{WRAPPER}}:after' => 'content: "{{SIZE}}";',
             ],
             'frontend_available' => true,
