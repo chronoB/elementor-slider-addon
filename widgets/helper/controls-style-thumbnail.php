@@ -63,18 +63,6 @@ $this->start_controls_section(
             'frontend_available' => true,
         ]
     );
-
-    $this->add_control(
-        'reload_slider_item_ratio',
-        [
-            'label' => __( 'Reload Slider', 'elementor-slider-addon' ),
-            'type' => \Elementor\Controls_Manager::BUTTON,
-            'button_type' => 'default',
-            'description' => 'Reload the Slider in the backend if you change the item ratio to make changes visible',
-            'text' => __( 'Reload', 'elementor-slider-addon' ),
-            'event' => 'elementor-slider-addon:slider:reload',
-        ]
-    );
     $this->add_responsive_control(
         'image_width',
         [
