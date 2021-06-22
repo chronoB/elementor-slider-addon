@@ -42,7 +42,7 @@ jQuery( window ).on( 'elementor/frontend/init', () => {
     if(typeof elementor !== 'undefined'){
         elementor.channels.editor.on('change',function( view ) {
             var changed = view.elementSettingsModel.changed;
-            if (changed.item_ratio){
+            if (changed.item_ratio || changed.slider_max_height){
                 checkItemRatio()
             }
         });

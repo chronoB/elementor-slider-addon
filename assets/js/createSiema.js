@@ -19,12 +19,6 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
     
         siema.style.display = "block"; // Override elementor display fix to block
 
-        //set the overflow of the section to hidden to avoid a horizontal scrollbar if there are to many items in the slider or the loop function is active.
-        if (this.getElementSettings( 'siema_overflow' )){
-            //only set the section overflow to hidden if the siema slider has a visible overflow.
-            siema.closest("section").style.overflow = "hidden";
-        }
-
         var hideLeft =  this.getElementSettings( 'hide-left' )
         function changeSlide() {
             if(hideLeft) {
@@ -55,7 +49,12 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
         }
 
         function getSiema(ctx){
-            console.log(ctx.getElementSettings())
+          
+            //set the overflow of the section to hidden to avoid a horizontal scrollbar if there are to many items in the slider or the loop function is active.
+            if (ctx.getElementSettings( 'siema_overflow' )){
+                //only set the section overflow to hidden if the siema slider has a visible overflow.
+                siema.closest("section").style.overflow = "hidden";
+            }
             if(ctx.getElementSettings( 'show_navigation_dots' )){
                 return new Siema({
                     selector: siema,
