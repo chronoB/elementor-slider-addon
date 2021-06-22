@@ -29,6 +29,10 @@
     display: grid;
 }
 
+.elementor-slider-addon-item-content__title{
+    margin: 0;
+}
+
 .elementor-slider-addon--align-left .elementor-slider-addon-item-content {
     text-align: left;
 }
