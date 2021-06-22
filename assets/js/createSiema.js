@@ -25,8 +25,8 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
             siema.closest("section").style.overflow = "hidden";
         }
 
+        var hideLeft =  this.getElementSettings( 'hide-left' )
         function changeSlide() {
-            var hideLeft =  this.getElementSettings( 'hide-left' )
             if(hideLeft) {
                 siemaSlider[siema].innerElements.forEach((slide, i) => {
                     if(i >= siemaSlider[siema].currentSlide) {
@@ -43,7 +43,7 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
                 let that = this;
                 elementor.channels.editor.on('change', (el)=>{
                     var changed = el.elementSettingsModel.changed;
-                    if(changed["number-slides"] || changed["number-slides_mobile"] || changed["number-slides_tablet"]  )
+                    if(changed["number-slides"] || changed["number-slides_mobile"] || changed["number-slides_tablet"] || changed["show_navigation_dots"]  )
                         resetSiema(el)
                 });
                 
@@ -55,23 +55,87 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
         }
 
         function getSiema(ctx){
-            return new Siema({
-                selector: siema,
-                duration: ctx.getElementSettings( 'siema_duration' ).size,
-                easing: ctx.getElementSettings( 'siema_easing' ),
-                perPage: {
-                    0: ctx.getElementSettings( 'number-slides_mobile' ) ? parseInt(ctx.getElementSettings( 'number-slides_mobile' )) : 1, 
-                    [mobileBreakpoint] : ctx.getElementSettings( 'number-slides_tablet' ) ? parseInt(ctx.getElementSettings( 'number-slides_tablet' )) : 2,
-                    [tabletBreakpoint] : ctx.getElementSettings( 'number-slides' ) ? parseInt(ctx.getElementSettings( 'number-slides' )) : 3
-                },
-                startIndex: parseInt( ctx.getElementSettings( 'siema_startIndex' ) ) - 1,
-                draggable: ctx.getElementSettings( 'siema_draggable' ) ? true : false,
-                multipleDrag: ctx.getElementSettings( 'siema_multipleDrag' ) ? true : false,
-                threshold: ctx.getElementSettings( 'siema_threshold').size,
-                loop: ctx.getElementSettings( 'siema_loop' ) ? true : false,
-                rtl: ctx.getElementSettings( 'siema_rtl' ) ? true : false,
-                onChange: changeSlide,
+            console.log(ctx.getElementSettings())
+            if(ctx.getElementSettings( 'show_navigation_dots' )){
+                return new Siema({
+                    selector: siema,
+                    duration: ctx.getElementSettings( 'siema_duration' ).size,
+                    easing: ctx.getElementSettings( 'siema_easing' ),
+                    perPage: {
+                        0: ctx.getElementSettings( 'number-slides_mobile' ) ? parseInt(ctx.getElementSettings( 'number-slides_mobile' )) : 1, 
+                        [mobileBreakpoint] : ctx.getElementSettings( 'number-slides_tablet' ) ? parseInt(ctx.getElementSettings( 'number-slides_tablet' )) : 2,
+                        [tabletBreakpoint] : ctx.getElementSettings( 'number-slides' ) ? parseInt(ctx.getElementSettings( 'number-slides' )) : 3
+                    },
+                    startIndex: parseInt( ctx.getElementSettings( 'siema_startIndex' ) ) - 1,
+                    draggable: ctx.getElementSettings( 'siema_draggable' ) ? true : false,
+                    multipleDrag: ctx.getElementSettings( 'siema_multipleDrag' ) ? true : false,
+                    threshold: ctx.getElementSettings( 'siema_threshold').size,
+                    loop: ctx.getElementSettings( 'siema_loop' ) ? true : false,
+                    rtl: ctx.getElementSettings( 'siema_rtl' ) ? true : false,
+                    onChange: function(){
+                        changeSlide();
+                        updateDots(this);
+                    },
+                    onInit: function(){
+                        addDots(this);
+                        updateDots(this);
+                    },
+                })
+            }
+            else{
+                return new Siema({
+                    selector: siema,
+                    duration: ctx.getElementSettings( 'siema_duration' ).size,
+                    easing: ctx.getElementSettings( 'siema_easing' ),
+                    perPage: {
+                        0: ctx.getElementSettings( 'number-slides_mobile' ) ? parseInt(ctx.getElementSettings( 'number-slides_mobile' )) : 1, 
+                        [mobileBreakpoint] : ctx.getElementSettings( 'number-slides_tablet' ) ? parseInt(ctx.getElementSettings( 'number-slides_tablet' )) : 2,
+                        [tabletBreakpoint] : ctx.getElementSettings( 'number-slides' ) ? parseInt(ctx.getElementSettings( 'number-slides' )) : 3
+                    },
+                    startIndex: parseInt( ctx.getElementSettings( 'siema_startIndex' ) ) - 1,
+                    draggable: ctx.getElementSettings( 'siema_draggable' ) ? true : false,
+                    multipleDrag: ctx.getElementSettings( 'siema_multipleDrag' ) ? true : false,
+                    threshold: ctx.getElementSettings( 'siema_threshold').size,
+                    loop: ctx.getElementSettings( 'siema_loop' ) ? true : false,
+                    rtl: ctx.getElementSettings( 'siema_rtl' ) ? true : false,
+                    onChange: changeSlide,
+                })
+            }
+        }
+        function addDots(that) {
+            // create a contnier for all dots
+            // add a class 'dots' for styling reason
+            that.dots = document.createElement('div');
+            that.dots.classList.add('dots');
+    
+            // loop through slides to create a number of dots
+            for(let i = 0; i < that.innerElements.length- (that.perPage-1); i++) {
+            // create a dot
+            const dot = document.createElement('button');
+    
+            // add a class to dot
+            dot.classList.add('dots__item');
+    
+            // add an event handler to each of them
+            dot.addEventListener('click', () => {
+                that.goTo(i);
             })
+    
+            // append dot to a container for all of them
+            that.dots.appendChild(dot);
+            }
+    
+            // add the container full of dots after selector
+            that.selector.parentNode.insertBefore(that.dots, that.selector.nextSibling);
+        }
+    
+        function updateDots(that) {
+            // loop through all dots
+            for(let i = 0; i < that.dots.querySelectorAll('button').length; i++) {
+            // if current dot matches currentSlide prop, add a class to it, remove otherwise
+            const addOrRemove = that.currentSlide === i ? 'add' : 'remove';
+            that.dots.querySelectorAll('button')[i].classList[addOrRemove]('dots__item--active');
+            }
         }
 
         if(siema.parentNode.querySelector(".prev")) {
@@ -90,7 +154,9 @@ class SiemaHandler extends elementorModules.frontend.handlers.Base {
         }
     
     }
+    
 }
+
 
 jQuery( window ).on( 'elementor/frontend/init', () => {
     const addHandler = ( $element ) => {
@@ -98,7 +164,7 @@ jQuery( window ).on( 'elementor/frontend/init', () => {
             $element,
         } );
     };
-
+    
     elementorFrontend.hooks.addAction( 'frontend/element_ready/elementor-slider-addon.default', addHandler );
 
 

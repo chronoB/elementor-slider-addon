@@ -128,3 +128,24 @@
     height:100%;
     width: auto;
 }
+
+
+/*dots*/
+.elementor-slider-addon ~ .dots {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border-radius: 15px;    
+}
+.elementor-slider-addon ~ .dots .dots__item {
+    border: solid var(--e-global-color-primary) 2px;
+    background-color:var(--e-global-color-secondary);
+    width: 10px;
+    height: 10px;
+    margin: 7.5px;
+    padding: 0;
+    border-radius: 50%;
+}
+.elementor-slider-addon ~ .dots .dots__item.dots__item--active {
+    background: var(--e-global-color-primary);
+}
