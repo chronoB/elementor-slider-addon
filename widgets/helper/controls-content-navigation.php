@@ -13,7 +13,7 @@ $this->start_controls_section(
 $this->add_control(
     'show_navigation',
     [
-        'label' => __('Show', 'elementor-slider-addon'),
+        'label' => __('Show Arrows', 'elementor-slider-addon'),
         'type' => Controls_Manager::SWITCHER,
         'label_on' => __('Show', 'elementor-slider-addon'),
         'label_off' => __('Hide', 'elementor-slider-addon'),
@@ -52,6 +52,18 @@ $this->add_control(
         ],
         'skin' => 'inline',
         'label_block' => false,
+        'frontend_available' => true,
+    ]
+);
+$this->add_control(
+    'show_navigation_dots',
+    [
+        'label' => __('Show Dots', 'elementor-slider-addon'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => __('Show', 'elementor-slider-addon'),
+        'label_off' => __('Hide', 'elementor-slider-addon'),
+        'return_value' => 'yes',
+        'default' => '',
         'frontend_available' => true,
     ]
 );
